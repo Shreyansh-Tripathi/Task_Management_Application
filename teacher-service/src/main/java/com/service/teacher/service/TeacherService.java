@@ -7,13 +7,17 @@ import java.util.List;
 public interface TeacherService {
     public Teacher createTeacher(Teacher teacher);
 
-    public Teacher readTeacher(String empId);
+    public Teacher readTeacher(Long empId);
 
     public List<Teacher> getAllTeachers();
 
-    public Teacher deleteTeacher(String empId);
+    public Teacher deleteTeacher(Long empId);
 
     public Teacher updateTeacher(Teacher teacher);
+
+    public List<Long> getStudents(Long empId);
+
+    public List<Long> getTasks(Long empId);
 
     List<Teacher> jsonImport(List<Teacher> teachers);
 }

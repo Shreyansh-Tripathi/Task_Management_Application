@@ -18,7 +18,7 @@ public class TeacherController {
     }
 
     @GetMapping("/getTeacherById")
-    public Teacher readTeacherById(@RequestParam String empId){
+    public Teacher readTeacherById(@RequestParam Long empId){
         return teacherService.readTeacher(empId);
     }
 
@@ -33,7 +33,7 @@ public class TeacherController {
     }
 
     @DeleteMapping("/deleteTeacherById")
-    public Teacher deleteTeacherById(@RequestParam String empId){
+    public Teacher deleteTeacherById(@RequestParam Long empId){
         return teacherService.deleteTeacher(empId);
     }
 

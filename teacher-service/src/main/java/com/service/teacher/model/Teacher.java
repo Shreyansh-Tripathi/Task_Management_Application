@@ -21,7 +21,7 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String employeeId;
+    private long employeeId;
     @NotNull(message = "name cannot be null")
     private String name;
     @NotNull(message = "email cannot be null")
