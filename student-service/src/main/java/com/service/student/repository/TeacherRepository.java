@@ -16,7 +16,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @EntityGraph(attributePaths = {"student_ids"})
     public List<Long> findByEmployeeId (@Param("empId") Long empId);
 
-    @Query(value = "select task_ids from teacher where employee_id = :empId", nativeQuery = true)
+    @Query(value = "select task_ids from teachers where employee_id = :empId", nativeQuery = true)
     public List<Long> findTasksByEmpId (@Param("empId")Long empId);
 
     @Query(value = "update teacher set student_ids = :stuIds where employee_id = :empId",nativeQuery = true)

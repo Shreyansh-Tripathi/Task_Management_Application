@@ -17,7 +17,7 @@ public class TeacherServiceImple implements TeacherService {
     @Override
     public Teacher createTeacher(Teacher teacher) {
         teacher.setTaskIds(new ArrayList<Long>());
-        teacher.setStudentIds(new ArrayList<Long>());
+//        teacher.setStudentIds(new ArrayList<Long>());
         return teacherRepository.save(teacher);
     }
 
@@ -40,14 +40,17 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public Teacher updateTeacher(Teacher teacher) {
-        Teacher newTeacher=readTeacher(teacher.getEmployeeId());
-        if(teacher.getName()!=null)
-            newTeacher.setName(teacher.getName());
-        if(teacher.getEmail()!=null)
-            newTeacher.setEmail(teacher.getEmail());
-        if(teacher.getContact()!=null)
-            newTeacher.setContact(teacher.getContact());
-        return teacherRepository.save(newTeacher);
+        return teacherRepository.findById(teacher.getEmployeeId()).map(
+                newTeacher -> {
+                    if(teacher.getName()!=null)
+                        newTeacher.setName(teacher.getName());
+                    if(teacher.getEmail()!=null)
+                        newTeacher.setEmail(teacher.getEmail());
+                    if(teacher.getContact()!=null)
+                        newTeacher.setContact(teacher.getContact());
+                    return teacherRepository.save(newTeacher);
+                }
+        ).orElseThrow(() -> new RuntimeException("teacher : " +teacher.getEmployeeId()+"not found"));
     }
 
     @Override
