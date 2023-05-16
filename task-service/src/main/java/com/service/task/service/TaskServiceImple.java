@@ -3,9 +3,11 @@ package com.service.task.service;
 import com.service.task.model.Task;
 import com.service.task.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TaskServiceImple implements TaskService {
 
     @Autowired
@@ -51,6 +53,8 @@ public class TaskServiceImple implements TaskService {
 
     @Override
     public void addNewStudent(Long taskId, Long stuId) {
-        List<Long> studentIds;
+        List<Long> studentIds=getAllStudents(taskId);
+        studentIds.add(stuId);
+        taskRepository.addNewStudent(taskId,studentIds);
     }
 }

@@ -1,6 +1,9 @@
-package com.service.teacher.model;
+package com.service.student.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -14,11 +17,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Teacher {
-
+public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long employeeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "roll number cannot be null")
+    private long rollNumber;
     @NotNull(message = "name cannot be null")
     private String name;
     @NotNull(message = "email cannot be null")
@@ -28,6 +31,6 @@ public class Teacher {
     @Length(min = 10, max = 10, message = "invalid contact number")
     private String contact;
 
-    private List<Long> studentIds;
+    private Long coordinator;
     private List<Long> taskIds;
 }

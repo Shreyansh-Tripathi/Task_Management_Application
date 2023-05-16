@@ -33,7 +33,7 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public Teacher deleteTeacher(Long empId) {
-        Teacher teacher = teacherRepository.findById(empId).orElseThrow(() -> new RuntimeException("cannot find teacher with id :" + empId));
+        Teacher teacher = readTeacher(empId);
         teacherRepository.deleteById(empId);
         return teacher;
     }

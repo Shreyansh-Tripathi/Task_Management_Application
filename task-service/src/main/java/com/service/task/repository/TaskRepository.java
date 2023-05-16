@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    @Query(value = "update task set student_ids = :studentIds where task_id = :taskId",nativeQuery = true)
+    @Query(value = "update task set student_ids = :stuIds where task_id = :taskId",nativeQuery = true)
     public void addNewStudent(@Param("taskId")Long taskId, @Param("stuIds") List<Long> stuIds);
 
     @Query(value = "select student_ids from task where task_id = :taskId", nativeQuery = true)

@@ -23,7 +23,7 @@ public class TeacherController {
     }
 
     @GetMapping("/getAllTeachers")
-    public List<Teacher> readTeacherById(){
+    public List<Teacher> getAllTeachers(){
         return teacherService.getAllTeachers();
     }
 
@@ -43,8 +43,8 @@ public class TeacherController {
     }
 
     @PatchMapping("/addNewTask")
-    public void addNewTask(@RequestBody){
-        
+    public void addNewTask(@RequestParam Long stuId,@RequestParam Long taskId){
+        sasaa
     }
 
 
