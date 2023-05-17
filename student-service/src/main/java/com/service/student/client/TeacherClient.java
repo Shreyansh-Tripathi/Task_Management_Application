@@ -1,2 +1,7 @@
-package com.service.student.client;public interface TeacherClient {
+package com.service.student.client;
+
+import org.springframework.web.service.annotation.HttpExchange;
+
+@HttpExchange
+public interface TeacherClient {
 }

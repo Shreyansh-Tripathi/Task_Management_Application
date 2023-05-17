@@ -1,2 +1,9 @@
-package com.service.student.client;public interface TaskClient {
+package com.service.student.client;
+
+import org.springframework.web.service.annotation.HttpExchange;
+
+@HttpExchange
+public interface TaskClient {
+
+    //getData
 }
