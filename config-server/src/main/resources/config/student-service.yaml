@@ -15,4 +15,4 @@ spring:
     url: jdbc:mysql://localhost:3306/TaskAssignment
     username: root
     password: SSql@310
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
