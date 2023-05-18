@@ -12,7 +12,7 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query(value = "update task set student_ids = :stuIds where task_id = :taskId",nativeQuery = true)
-    public void addNewStudent(@Param("taskId")Long taskId, @Param("stuIds") List<Long> stuIds);
+    public void addNewStudents(@Param("taskId")Long taskId, @Param("stuIds") List<Long> stuIds);
 
     @Query(value = "select student_ids from task where task_id = :taskId", nativeQuery = true)
     public List<Long> findStudentsByTaskId (@Param("taskId")Long taskId);

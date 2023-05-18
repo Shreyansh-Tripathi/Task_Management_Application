@@ -5,6 +5,7 @@ import com.service.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,5 +56,23 @@ public class StudentServiceImple implements StudentService{
     @Override
     public Long getCoordinator(Long empId) {
         return studentRepository.findByCoordinator(empId);
+    }
+
+    @Override
+    public void addNewTask(Long stuId,Long taskId) {
+        List<Long> tasks=getTasks(stuId);
+        tasks.add(taskId);
+        studentRepository.addNewTask(stuId,tasks);
+    }
+
+    @Override
+    public List<Student> jsonImport(List<Student> students) {
+        students.forEach(
+                student -> {
+                    student.setTaskIds(new ArrayList<Long>());
+                    student.setCoordinator((long)2);
+                }
+        );
+        return studentRepository.saveAll(students);
     }
 }

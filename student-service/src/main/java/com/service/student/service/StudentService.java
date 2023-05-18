@@ -18,4 +18,8 @@ public interface StudentService {
     public List<Long> getTasks(Long rollNum);
 
     public Long getCoordinator(Long empId);
+
+    public void addNewTask(Long stuId,Long taskId);
+
+    List<Student> jsonImport(List<Student> teachers);
 }

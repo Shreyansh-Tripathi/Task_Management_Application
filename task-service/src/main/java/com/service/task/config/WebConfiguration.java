@@ -1,8 +1,9 @@
 
-package com.service.teacher.config;
+package com.service.task.config;
 
-import com.service.teacher.client.StudentClient;
-import com.service.teacher.client.TaskClient;
+
+import com.service.task.client.StudentClient;
+import com.service.task.client.TeacherClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.reactive.LoadBalancedExchangeFilterFunction;
 import org.springframework.context.annotation.Bean;
@@ -18,21 +19,6 @@ public class WebConfiguration {
     LoadBalancedExchangeFilterFunction filterFunction;
 
     @Bean
-    public WebClient taskWebClient(){
-        return WebClient.builder()
-                .baseUrl("http://task-service")
-                .filter(filterFunction)
-                .build();
-    }
-
-    @Bean
-    public TaskClient taskClient(){
-        HttpServiceProxyFactory factory= HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(taskWebClient())).build();
-        return factory.createClient(TaskClient.class);
-    }
-
-    @Bean
     public WebClient studentWebClient(){
         return WebClient.builder()
                 .baseUrl("http://student-service")
@@ -45,6 +31,21 @@ public class WebConfiguration {
         HttpServiceProxyFactory factory= HttpServiceProxyFactory
                 .builder(WebClientAdapter.forClient(studentWebClient())).build();
         return factory.createClient(StudentClient.class);
+    }
+
+    @Bean
+    public WebClient teacherWebClient(){
+        return WebClient.builder()
+                .baseUrl("http://teacher-service")
+                .filter(filterFunction)
+                .build();
+    }
+
+    @Bean
+    public TeacherClient teacherClient(){
+        HttpServiceProxyFactory factory= HttpServiceProxyFactory
+                .builder(WebClientAdapter.forClient(teacherWebClient())).build();
+        return factory.createClient(TeacherClient.class);
     }
 
 

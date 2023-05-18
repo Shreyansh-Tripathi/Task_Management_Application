@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -23,5 +24,5 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     public void addNewStudent(@Param("empId")Long empId, @Param("stuIds")List<Long> stuIds);
 
     @Query(value = "update teacher set task_ids = :taskIds where employee_id = :empId",nativeQuery = true)
-    public void addNewTask(@Param("empId")Long empId, @Param("taskIds")List<Long> taskIds);
+    public void addNewTask(@Param("empId")Long empId, @Param("taskIds") List<Long> taskIds);
 }

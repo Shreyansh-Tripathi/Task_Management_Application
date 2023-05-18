@@ -52,9 +52,9 @@ public class TaskServiceImple implements TaskService {
     }
 
     @Override
-    public void addNewStudent(Long taskId, Long stuId) {
+    public void addNewStudents(Long taskId, List<Long> stuIds) {
         List<Long> studentIds=getAllStudents(taskId);
-        studentIds.add(stuId);
-        taskRepository.addNewStudent(taskId,studentIds);
+        studentIds.addAll(stuIds);
+        taskRepository.addNewStudents(taskId,studentIds);
     }
 }

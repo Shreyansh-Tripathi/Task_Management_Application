@@ -17,5 +17,5 @@ public interface TaskService {
 
     public List<Long> getAllStudents(Long taskId);
 
-    public void addNewStudent(Long taskId, Long stuId);
+    public void addNewStudents(Long taskId, List<Long> stuIds);
 }

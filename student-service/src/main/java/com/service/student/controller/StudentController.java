@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/students")
 public class StudentController {
 
-    private StudentService studentService;
+    private final StudentService studentService;
 
     @Autowired
     public StudentController(StudentService service){
@@ -42,17 +43,13 @@ public class StudentController {
         return studentService.updateStudent(student);
     }
 
-//    @PatchMapping("/addNewTask")
-//    public void addNewTask(@RequestBody){
-//
-//    }
-//
-//
-//
-//
-//    @PostMapping("/jsonImport")
-//    public List<Teacher> jsonImport(@RequestBody List<Teacher> teachers){
-//        return teacherService.jsonImport(teachers);
-//    }
+    @PatchMapping("/addNewTask")
+    public void addNewTask(@RequestParam Long rollNum,@RequestParam Long taskId){
+        studentService.addNewTask(rollNum,taskId);
+    }
 
+    @PostMapping("/jsonImport")
+    public List<Student> jsonImport(@RequestBody List<Student> students){
+        return studentService.jsonImport(students);
+    }
 }

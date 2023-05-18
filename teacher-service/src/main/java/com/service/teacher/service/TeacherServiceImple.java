@@ -76,7 +76,7 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public List<Teacher> jsonImport(List<Teacher> teachers) {
-        teachers.stream().forEach(
+        teachers.forEach(
                 teacher -> {
                     teacher.setTaskIds(new ArrayList<Long>());
                     teacher.setStudentIds(new ArrayList<Long>());

@@ -1,5 +1,7 @@
 package com.service.task.controller;
 
+import com.service.task.client.StudentClient;
+import com.service.task.client.TeacherClient;
 import com.service.task.model.Task;
 import com.service.task.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/tasks")
 public class TaskController {
-    private TaskService taskService;
+
+    @Autowired
+    private TeacherClient teacherClient;
+
+    @Autowired
+    private StudentClient studentClient;
+
+    private final TaskService taskService;
 
     @Autowired
     public TaskController(TaskService service){
@@ -28,7 +38,13 @@ public class TaskController {
 
     @PostMapping("/createTask")
     public Task createTask(@RequestBody Task task){
-        return taskService.createTask(task);
+        Task t= taskService.createTask(task);
+        List<Long> students=task.getStudentIds();
+        for(long id : students){
+            studentClient.addNewTask(id,task.getTaskId());
+        }
+        teacherClient.addNewTask(task.getTeacherId(),task.getTaskId());
+        return t;
     }
 
     @DeleteMapping("/deleteTaskById")
@@ -42,8 +58,8 @@ public class TaskController {
     }
 
     @PatchMapping("/addStudentToTask")
-    public void addStudentToTask(@RequestParam Long taskId, @RequestParam Long stuId){
-        taskService.addNewStudent(taskId,stuId);
+    public void addStudentsToTask(@RequestParam Long taskId, @RequestParam List<Long> stuIds){
+        taskService.addNewStudents(taskId,stuIds);
     }
 
 }
