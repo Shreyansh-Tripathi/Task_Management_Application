@@ -56,6 +56,11 @@ public class TeacherController {
         teacherService.addTask(empId,taskId);
     }
 
+    @PatchMapping("/deleteTask")
+    public void deleteTask(@RequestParam Long empId,@RequestParam Long taskId){
+        teacherService.deleteTask(empId,taskId);
+    }
+
     @PatchMapping("/addNewStudent")
     public void addNewStudent(@RequestParam Long empId,@RequestParam Long stuRollNum){
         teacherService.addStudent(empId,stuRollNum);

@@ -66,6 +66,13 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
+    public void deleteTask(Long stuId, Long taskId) {
+        List<Long> tasks=getTasks(stuId);
+        tasks.remove(taskId);
+        studentRepository.addNewTask(stuId,tasks);
+    }
+
+    @Override
     public List<Student> jsonImport(List<Student> students) {
         students.forEach(
                 student -> {

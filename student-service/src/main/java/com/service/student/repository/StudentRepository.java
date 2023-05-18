@@ -20,4 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query(value = "update student set task_ids = :taskIds where student_id = :stuId",nativeQuery = true)
     public void addNewTask(@Param("stuId")Long stuId, @Param("taskIds") List<Long> taskIds);
+
+    @Query(value = "update student set task_ids = :taskIds where student_id = :stuId",nativeQuery = true)
+    public void deleteTask(@Param("stuId")Long stuId, @Param("taskIds") List<Long> taskIds);
 }

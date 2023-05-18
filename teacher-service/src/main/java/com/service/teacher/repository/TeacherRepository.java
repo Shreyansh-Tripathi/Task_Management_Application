@@ -25,4 +25,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     @Query(value = "update teacher set task_ids = :taskIds where employee_id = :empId",nativeQuery = true)
     public void addNewTask(@Param("empId")Long empId, @Param("taskIds") List<Long> taskIds);
+
+    @Query(value = "update teacher set task_ids = :taskIds where employee_id = :empId",nativeQuery = true)
+    public void deleteTask(@Param("empId")Long empId, @Param("taskIds") List<Long> taskIds);
 }

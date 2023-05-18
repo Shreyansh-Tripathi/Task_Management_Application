@@ -48,6 +48,11 @@ public class StudentController {
         studentService.addNewTask(rollNum,taskId);
     }
 
+    @PatchMapping("/deleteTask")
+    public void deleteTask(@RequestParam Long rollNum,@RequestParam Long taskId){
+        studentService.deleteTask(rollNum,taskId);
+    }
+
     @PostMapping("/jsonImport")
     public List<Student> jsonImport(@RequestBody List<Student> students){
         return studentService.jsonImport(students);
