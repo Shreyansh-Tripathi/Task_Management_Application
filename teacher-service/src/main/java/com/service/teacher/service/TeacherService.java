@@ -25,5 +25,9 @@ public interface TeacherService {
 
     public void addStudent(Long empId, Long studentId);
 
+    public void removeStudent(Long empId, Long studentId);
+
+    public void addManyStudents(Long empId, List<Long> stuIds);
+
     List<Teacher> jsonImport(List<Teacher> teachers);
 }

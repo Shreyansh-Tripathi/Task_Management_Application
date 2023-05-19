@@ -78,7 +78,21 @@ public class TeacherServiceImple implements TeacherService {
     public void addStudent(Long empId, Long studentId) {
         List<Long> students=getStudents(empId);
         students.add(studentId);
-        teacherRepository.addNewTask(empId,students);
+        teacherRepository.updateStudents(empId,students);
+    }
+
+    @Override
+    public void removeStudent(Long empId, Long studentId) {
+        List<Long> students=getStudents(empId);
+        students.remove(studentId);
+        teacherRepository.updateStudents(empId,students);
+    }
+
+    @Override
+    public void addManyStudents(Long empId, List<Long> stuIds) {
+        List<Long> students=getStudents(empId);
+        students.addAll(stuIds);
+        teacherRepository.updateStudents(empId,students);
     }
 
     @Override

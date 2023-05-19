@@ -43,6 +43,9 @@ public class TeacherController {
 
     @DeleteMapping("/deleteTeacherById")
     public Teacher deleteTeacherById(@RequestParam Long empId){
+        for(long id : teacherService.getStudents(empId)){
+            studentClient.removeTeacher(id);
+        }
         return teacherService.deleteTeacher(empId);
     }
 
@@ -66,9 +69,30 @@ public class TeacherController {
         teacherService.addStudent(empId,stuRollNum);
     }
 
+    @PatchMapping("/addManyStudents")
+    public void addManyStudents(@RequestParam Long empId,@RequestParam List<Long> stuIds){
+        teacherService.addManyStudents(empId,stuIds);
+    }
 
+    @PatchMapping("/updateStudentsOfTeacher")
+    public void updateStudents(@RequestParam Long empId, @RequestParam List<Long> newStudents){
+        List<Long> oldStudents=teacherService.getStudents(empId);
 
+        for(long id : newStudents){
+            if(!oldStudents.contains(id)) {
+                teacherService.addStudent(empId, id);
+                studentClient.addTeacher(id, empId);
+            }
+        }
+        for(long id : oldStudents){
+            if(!newStudents.contains(id)) {
+                teacherService.removeStudent(empId, id);
+                studentClient.removeTeacher(id);
+            }
+        }
+    }
 
+    //to import teachers data
     @PostMapping("/jsonImport")
     public List<Teacher> jsonImport(@RequestBody List<Teacher> teachers){
         return teacherService.jsonImport(teachers);

@@ -23,5 +23,9 @@ public interface StudentService {
 
     public void deleteTask(Long stuId,Long taskId);
 
+    public void addTeacher(Long stuId,Long empId);
+
+    public void deleteTeacher(Long stuId);
+
     List<Student> jsonImport(List<Student> teachers);
 }
