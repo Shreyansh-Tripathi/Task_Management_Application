@@ -37,6 +37,7 @@ public class TaskServiceImple implements TaskService {
             newTask.setName(task.getName());
         if(task.getDescription()!=null)
             newTask.setDescription(task.getDescription());
+        newTask.setStudentIds(task.getStudentIds());
 
         return taskRepository.save(newTask);
     }

@@ -48,13 +48,30 @@ public class TaskController {
     }
 
     @DeleteMapping("/deleteTaskById")
-    public Task deleteTaskById(@RequestParam Long taskId){
-        return taskService.deleteTask(taskId);
+    public Task deleteTaskById(@RequestParam Long taskId, @RequestParam Long teacherId, @RequestParam List<Long> studentIds){
+        Task t= taskService.deleteTask(taskId);
+        for(long id : studentIds){
+            studentClient.deleteTask(id,taskId);
+        }
+        teacherClient.deleteTask(teacherId,taskId);
+        return t;
     }
 
     @PutMapping("/updateTask")
-    public Task updateTeacher(@RequestBody Task task){
-        return taskService.updateTask(task);
+    public Task updateTask(@RequestBody Task task){
+        Task t= taskService.updateTask(task);
+        List<Long> oldStudents=taskService.getAllStudents(task.getTaskId());
+        List<Long> newStudents = task.getStudentIds();
+
+        for(long id : oldStudents){
+            if(!newStudents.contains(id))
+                studentClient.deleteTask(id,task.getTaskId());
+        }
+        for(long id : newStudents){
+            if(!oldStudents.contains(id))
+                studentClient.addNewTask(id,task.getTaskId());
+        }
+        return t;
     }
 
     @PatchMapping("/addStudentToTask")
