@@ -1,5 +1,6 @@
 package com.service.student.controller;
 
+import com.service.student.client.TeacherClient;
 import com.service.student.model.Student;
 import com.service.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
+
+    @Autowired
+    private TeacherClient teacherClient;
 
     private final StudentService studentService;
 
@@ -30,11 +34,15 @@ public class StudentController {
 
     @PostMapping("/createStudent")
     public Student createStudent(@RequestBody Student student){
-        return studentService.createStudent(student);
+        Student stu= studentService.createStudent(student);
+        teacherClient.addNewStudent(student.getCoordinator(),student.getRollNumber());
+        return stu;
     }
 
     @DeleteMapping("/deleteStudentByRollNumber")
     public Student deleteStudentByRollNumber(@RequestParam Long rollNum){
+        Student student=getStudentByRollNumber(rollNum);
+        teacherClient.removeStudent(student.getCoordinator(),rollNum);
         return studentService.deleteStudent(rollNum);
     }
 

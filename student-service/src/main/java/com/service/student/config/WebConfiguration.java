@@ -43,7 +43,7 @@ public class WebConfiguration {
     @Bean
     public TeacherClient teacherClient(){
         HttpServiceProxyFactory factory= HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(taskWebClient())).build();
+                .builder(WebClientAdapter.forClient(teacherWebClient())).build();
         return factory.createClient(TeacherClient.class);
     }
 
