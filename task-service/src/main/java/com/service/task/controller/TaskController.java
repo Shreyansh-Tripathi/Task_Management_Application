@@ -79,4 +79,9 @@ public class TaskController {
         taskService.addNewStudents(taskId,stuIds);
     }
 
+    @PatchMapping("/deleteStudentFromTask")
+    public void deleteStudentFromTask(@RequestParam Long taskId, @RequestParam Long stuId){
+        taskService.deleteStudent(taskId,stuId);
+    }
+
 }

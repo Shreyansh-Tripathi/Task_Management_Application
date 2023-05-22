@@ -1,5 +1,6 @@
 package com.service.student.controller;
 
+import com.service.student.client.TaskClient;
 import com.service.student.client.TeacherClient;
 import com.service.student.model.Student;
 import com.service.student.service.StudentService;
@@ -14,6 +15,9 @@ public class StudentController {
 
     @Autowired
     private TeacherClient teacherClient;
+
+    @Autowired
+    private TaskClient taskClient;
 
     private final StudentService studentService;
 
@@ -43,6 +47,10 @@ public class StudentController {
     public Student deleteStudentByRollNumber(@RequestParam Long rollNum){
         Student student=getStudentByRollNumber(rollNum);
         teacherClient.removeStudent(student.getCoordinator(),rollNum);
+        List<Long> tasks=student.getTaskIds();
+        for(Long task : tasks){
+            taskClient.deleteStudentFromTask(task,rollNum);
+        }
         return studentService.deleteStudent(rollNum);
     }
 

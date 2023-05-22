@@ -56,6 +56,13 @@ public class TaskServiceImple implements TaskService {
     public void addNewStudents(Long taskId, List<Long> stuIds) {
         List<Long> studentIds=getAllStudents(taskId);
         studentIds.addAll(stuIds);
-        taskRepository.addNewStudents(taskId,studentIds);
+        taskRepository.updateStudents(taskId,studentIds);
+    }
+
+    @Override
+    public void deleteStudent(Long taskId, Long stuId) {
+        List<Long> studentIds=getAllStudents(taskId);
+        studentIds.remove(stuId);
+        taskRepository.updateStudents(taskId,studentIds);
     }
 }

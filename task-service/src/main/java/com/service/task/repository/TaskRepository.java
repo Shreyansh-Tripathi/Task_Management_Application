@@ -16,7 +16,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Modifying
     @Transactional
     @Query(value = "update task set student_ids = :stuIds where task_id = :taskId",nativeQuery = true)
-    public void addNewStudents(@Param("taskId")Long taskId, @Param("stuIds") List<Long> stuIds);
+    public void updateStudents(@Param("taskId")Long taskId, @Param("stuIds") List<Long> stuIds);
 
     @Modifying
     @Transactional

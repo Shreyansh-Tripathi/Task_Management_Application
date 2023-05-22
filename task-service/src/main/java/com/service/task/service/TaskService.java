@@ -18,4 +18,6 @@ public interface TaskService {
     public List<Long> getAllStudents(Long taskId);
 
     public void addNewStudents(Long taskId, List<Long> stuIds);
+
+    public void deleteStudent(Long taskId, Long stuId);
 }
