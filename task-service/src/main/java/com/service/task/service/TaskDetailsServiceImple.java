@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TaskServiceImple implements TaskService {
+public class TaskDetailsServiceImple implements TaskDetailsService {
 
     @Autowired
     private TaskDetailsRepository taskDetailsRepository;

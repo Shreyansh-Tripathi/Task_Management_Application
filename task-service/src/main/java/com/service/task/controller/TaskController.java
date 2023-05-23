@@ -3,7 +3,7 @@ package com.service.task.controller;
 import com.service.task.client.StudentClient;
 import com.service.task.client.TeacherClient;
 import com.service.task.model.TaskDetails;
-import com.service.task.service.TaskService;
+import com.service.task.service.TaskDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,26 +19,26 @@ public class TaskController {
     @Autowired
     private StudentClient studentClient;
 
-    private final TaskService taskService;
+    private final TaskDetailsService taskDetailsService;
 
     @Autowired
-    public TaskController(TaskService service){
-        taskService=service;
+    public TaskController(TaskDetailsService service){
+        taskDetailsService =service;
     }
 
     @GetMapping("/getTaskById")
     public TaskDetails getTaskById(@RequestParam Long taskId){
-        return taskService.readtask(taskId);
+        return taskDetailsService.readtask(taskId);
     }
 
     @GetMapping("/getAllTasks")
     public List<TaskDetails> getAllTasks(){
-        return taskService.getAllTasks();
+        return taskDetailsService.getAllTasks();
     }
 
     @PostMapping("/createTask")
     public TaskDetails createTask(@RequestBody TaskDetails taskDetails){
-        TaskDetails t= taskService.createTask(taskDetails);
+        TaskDetails t= taskDetailsService.createTask(taskDetails);
         List<Long> students= taskDetails.getStudentIds();
         for(long id : students){
             studentClient.addNewTask(id, taskDetails.getTaskId());
@@ -49,7 +49,7 @@ public class TaskController {
 
     @DeleteMapping("/deleteTaskById")
     public TaskDetails deleteTaskById(@RequestParam Long taskId, @RequestParam Long teacherId, @RequestParam List<Long> studentIds){
-        TaskDetails t= taskService.deleteTask(taskId);
+        TaskDetails t= taskDetailsService.deleteTask(taskId);
         for(long id : studentIds){
             studentClient.deleteTask(id,taskId);
         }
@@ -59,8 +59,8 @@ public class TaskController {
 
     @PutMapping("/updateTask")
     public TaskDetails updateTask(@RequestBody TaskDetails taskDetails){
-        TaskDetails t= taskService.updateTask(taskDetails);
-        List<Long> oldStudents=taskService.getAllStudents(taskDetails.getTaskId());
+        TaskDetails t= taskDetailsService.updateTask(taskDetails);
+        List<Long> oldStudents= taskDetailsService.getAllStudents(taskDetails.getTaskId());
         List<Long> newStudents = taskDetails.getStudentIds();
 
         for(long id : oldStudents){
@@ -76,12 +76,12 @@ public class TaskController {
 
     @PatchMapping("/addStudentToTask")
     public void addStudentsToTask(@RequestParam Long taskId, @RequestParam List<Long> stuIds){
-        taskService.addNewStudents(taskId,stuIds);
+        taskDetailsService.addNewStudents(taskId,stuIds);
     }
 
     @PatchMapping("/deleteStudentFromTask")
     public void deleteStudentFromTask(@RequestParam Long taskId, @RequestParam Long stuId){
-        taskService.deleteStudent(taskId,stuId);
+        taskDetailsService.deleteStudent(taskId,stuId);
     }
 
 }

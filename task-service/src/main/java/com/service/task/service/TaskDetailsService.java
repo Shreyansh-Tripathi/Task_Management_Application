@@ -4,7 +4,7 @@ import com.service.task.model.TaskDetails;
 
 import java.util.List;
 
-public interface TaskService {
+public interface TaskDetailsService {
     public TaskDetails createTask(TaskDetails taskDetails);
 
     public TaskDetails readtask(Long taskId);
