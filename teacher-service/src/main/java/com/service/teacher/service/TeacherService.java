@@ -23,7 +23,7 @@ public interface TeacherService {
 
     public void deleteTask(Long empId, Long taskId);
 
-    public void addStudent(Long empId, Long studentId);
+    public void addStudent(Long empId, Long rollNum);
 
     public void removeStudent(Long empId, Long studentId);
 

@@ -43,9 +43,6 @@ public class TeacherController {
 
     @DeleteMapping("/deleteTeacherById")
     public Teacher deleteTeacherById(@RequestParam Long empId){
-        for(long id : teacherService.getStudents(empId)){
-            studentClient.removeTeacher(id);
-        }
         return teacherService.deleteTeacher(empId);
     }
 
@@ -65,13 +62,13 @@ public class TeacherController {
     }
 
     @PatchMapping("/addNewStudent")
-    public void addNewStudent(@RequestParam Long empId,@RequestParam Long stuRollNum){
-        teacherService.addStudent(empId,stuRollNum);
+    public void addNewStudent(@RequestParam Long empId,@RequestParam Long rollNum){
+        teacherService.addStudent(empId,rollNum);
     }
 
     @PatchMapping("/removeStudent")
-    public void removeStudent(@RequestParam Long empId,@RequestParam Long stuRollNum){
-        teacherService.removeStudent(empId,stuRollNum);
+    public void removeStudent(@RequestParam Long empId,@RequestParam Long rollNum){
+        teacherService.removeStudent(empId,rollNum);
     }
 
     @PatchMapping("/addManyStudents")

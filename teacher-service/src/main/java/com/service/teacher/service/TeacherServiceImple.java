@@ -3,8 +3,12 @@ package com.service.teacher.service;
 
 import com.service.teacher.model.Teacher;
 import com.service.teacher.repository.TeacherRepository;
+import jakarta.annotation.PostConstruct;
+import jakarta.ws.rs.core.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +17,20 @@ import java.util.List;
 public class TeacherServiceImple implements TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
+
+    public WebClient taskWebClient, studentWebClient;
+
+    @PostConstruct
+    public void init(){
+        taskWebClient= WebClient.builder()
+                .baseUrl("http://localhost:8083/tasks")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+        studentWebClient=WebClient.builder()
+                .baseUrl("http://localhost:8082/students")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
 
     @Override
     public Teacher createTeacher(Teacher teacher) {
@@ -34,6 +52,10 @@ public class TeacherServiceImple implements TeacherService {
     @Override
     public Teacher deleteTeacher(Long empId) {
         Teacher teacher = readTeacher(empId);
+        List<Long> students = getStudents(empId);
+        for(long id : students){
+            studentWebClient.delete().uri("/removeTeacher?rollNum="+id);
+        }
         teacherRepository.deleteById(empId);
         return teacher;
     }
@@ -77,7 +99,9 @@ public class TeacherServiceImple implements TeacherService {
     @Override
     public void addStudent(Long empId, Long studentId) {
         List<Long> students=getStudents(empId);
+        System.out.println(students);
         students.add(studentId);
+        System.out.println(students);
         teacherRepository.updateStudents(empId,students);
     }
 
@@ -91,8 +115,13 @@ public class TeacherServiceImple implements TeacherService {
     @Override
     public void addManyStudents(Long empId, List<Long> stuIds) {
         List<Long> students=getStudents(empId);
+        System.out.println(students);
         students.addAll(stuIds);
-        teacherRepository.updateStudents(empId,students);
+        System.out.println(students);
+        Teacher teacher=readTeacher(empId);
+        teacher.setStudentIds(students);
+        teacherRepository.save(teacher);
+        System.out.println(students);
     }
 
     @Override
