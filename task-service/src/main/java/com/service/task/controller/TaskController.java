@@ -2,7 +2,7 @@ package com.service.task.controller;
 
 import com.service.task.client.StudentClient;
 import com.service.task.client.TeacherClient;
-import com.service.task.model.Task;
+import com.service.task.model.TaskDetails;
 import com.service.task.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,29 +27,29 @@ public class TaskController {
     }
 
     @GetMapping("/getTaskById")
-    public Task getTaskById(@RequestParam Long taskId){
+    public TaskDetails getTaskById(@RequestParam Long taskId){
         return taskService.readtask(taskId);
     }
 
     @GetMapping("/getAllTasks")
-    public List<Task> getAllTasks(){
+    public List<TaskDetails> getAllTasks(){
         return taskService.getAllTasks();
     }
 
     @PostMapping("/createTask")
-    public Task createTask(@RequestBody Task task){
-        Task t= taskService.createTask(task);
-        List<Long> students=task.getStudentIds();
+    public TaskDetails createTask(@RequestBody TaskDetails taskDetails){
+        TaskDetails t= taskService.createTask(taskDetails);
+        List<Long> students= taskDetails.getStudentIds();
         for(long id : students){
-            studentClient.addNewTask(id,task.getTaskId());
+            studentClient.addNewTask(id, taskDetails.getTaskId());
         }
-        teacherClient.addNewTask(task.getTeacherId(),task.getTaskId());
+        teacherClient.addNewTask(taskDetails.getTeacherId(), taskDetails.getTaskId());
         return t;
     }
 
     @DeleteMapping("/deleteTaskById")
-    public Task deleteTaskById(@RequestParam Long taskId, @RequestParam Long teacherId, @RequestParam List<Long> studentIds){
-        Task t= taskService.deleteTask(taskId);
+    public TaskDetails deleteTaskById(@RequestParam Long taskId, @RequestParam Long teacherId, @RequestParam List<Long> studentIds){
+        TaskDetails t= taskService.deleteTask(taskId);
         for(long id : studentIds){
             studentClient.deleteTask(id,taskId);
         }
@@ -58,18 +58,18 @@ public class TaskController {
     }
 
     @PutMapping("/updateTask")
-    public Task updateTask(@RequestBody Task task){
-        Task t= taskService.updateTask(task);
-        List<Long> oldStudents=taskService.getAllStudents(task.getTaskId());
-        List<Long> newStudents = task.getStudentIds();
+    public TaskDetails updateTask(@RequestBody TaskDetails taskDetails){
+        TaskDetails t= taskService.updateTask(taskDetails);
+        List<Long> oldStudents=taskService.getAllStudents(taskDetails.getTaskId());
+        List<Long> newStudents = taskDetails.getStudentIds();
 
         for(long id : oldStudents){
             if(!newStudents.contains(id))
-                studentClient.deleteTask(id,task.getTaskId());
+                studentClient.deleteTask(id, taskDetails.getTaskId());
         }
         for(long id : newStudents){
             if(!oldStudents.contains(id))
-                studentClient.addNewTask(id,task.getTaskId());
+                studentClient.addNewTask(id, taskDetails.getTaskId());
         }
         return t;
     }

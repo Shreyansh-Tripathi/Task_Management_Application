@@ -1,6 +1,6 @@
 package com.service.task.service;
 
-import com.service.task.model.Task;
+import com.service.task.model.TaskDetails;
 import com.service.task.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,36 +14,36 @@ public class TaskServiceImple implements TaskService {
     private TaskRepository taskRepository;
 
     @Override
-    public Task createTask(Task task) {
-        return taskRepository.save(task);
+    public TaskDetails createTask(TaskDetails taskDetails) {
+        return taskRepository.save(taskDetails);
     }
 
     @Override
-    public Task readtask(Long taskId) {
+    public TaskDetails readtask(Long taskId) {
         return taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("cannot find task with id :"+taskId));
     }
 
     @Override
-    public Task deleteTask(Long taskId) {
-        Task task = readtask(taskId);
+    public TaskDetails deleteTask(Long taskId) {
+        TaskDetails taskDetails = readtask(taskId);
         taskRepository.deleteById(taskId);
-        return task;
+        return taskDetails;
     }
 
     @Override
-    public Task updateTask(Task task) {
-        Task newTask = readtask(task.getTaskId());
-        if(task.getName()!=null)
-            newTask.setName(task.getName());
-        if(task.getDescription()!=null)
-            newTask.setDescription(task.getDescription());
-        newTask.setStudentIds(task.getStudentIds());
+    public TaskDetails updateTask(TaskDetails taskDetails) {
+        TaskDetails newTaskDetails = readtask(taskDetails.getTaskId());
+        if(taskDetails.getName()!=null)
+            newTaskDetails.setName(taskDetails.getName());
+        if(taskDetails.getDescription()!=null)
+            newTaskDetails.setDescription(taskDetails.getDescription());
+        newTaskDetails.setStudentIds(taskDetails.getStudentIds());
 
-        return taskRepository.save(newTask);
+        return taskRepository.save(newTaskDetails);
     }
 
     @Override
-    public List<Task> getAllTasks() {
+    public List<TaskDetails> getAllTasks() {
         return taskRepository.findAll();
     }
 

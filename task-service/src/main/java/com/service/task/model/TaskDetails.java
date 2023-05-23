@@ -7,25 +7,20 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Task {
+public class TaskDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long taskId;
     @NotNull(message = "name cannot be null")
     private String name;
     @NotNull(message = "name cannot be null")
     private String description;
-
-    @NotNull(message = "assign to minimum one student")
-    private List<Long> studentIds;
     @NotNull(message = "teacher cannot be null")
     private Long teacherId;
 }

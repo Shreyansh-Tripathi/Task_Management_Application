@@ -1,6 +1,6 @@
 package com.service.task.repository;
 
-import com.service.task.model.Task;
+import com.service.task.model.TaskDetails;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<TaskDetails, Long> {
 
     @Modifying
     @Transactional

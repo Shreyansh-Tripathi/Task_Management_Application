@@ -1,19 +1,19 @@
 package com.service.task.service;
 
-import com.service.task.model.Task;
+import com.service.task.model.TaskDetails;
 
 import java.util.List;
 
 public interface TaskService {
-    public Task createTask(Task task);
+    public TaskDetails createTask(TaskDetails taskDetails);
 
-    public Task readtask(Long taskId);
+    public TaskDetails readtask(Long taskId);
 
-    public Task deleteTask(Long taskId);
+    public TaskDetails deleteTask(Long taskId);
 
-    public Task updateTask(Task task);
+    public TaskDetails updateTask(TaskDetails taskDetails);
 
-    public List<Task> getAllTasks();
+    public List<TaskDetails> getAllTasks();
 
     public List<Long> getAllStudents(Long taskId);
 

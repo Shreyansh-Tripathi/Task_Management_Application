@@ -17,7 +17,7 @@ import java.util.List;
 public class Teacher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeId;
     @NotNull(message = "name cannot be null")
     private String name;
@@ -27,7 +27,4 @@ public class Teacher {
     @NotNull(message = "contact cannot be null")
     @Length(min = 10, max = 10, message = "invalid contact number")
     private String contact;
-
-    private List<Long> studentIds;
-    private List<Long> taskIds;
 }

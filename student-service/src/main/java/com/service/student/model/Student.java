@@ -32,5 +32,4 @@ public class Student {
     private String contact;
 
     private Long coordinator;
-    private List<Long> taskIds;
 }

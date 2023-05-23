@@ -8,8 +8,8 @@
 		<version>3.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.service.task</groupId>
-	<artifactId>task-service</artifactId>
+	<groupId>com.service.taskDetails</groupId>
+	<artifactId>taskDetails-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Task Service</name>
 	<description>Task Assignment Application for students and teachers</description>
