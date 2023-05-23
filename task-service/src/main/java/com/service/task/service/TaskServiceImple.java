@@ -1,7 +1,7 @@
 package com.service.task.service;
 
 import com.service.task.model.TaskDetails;
-import com.service.task.repository.TaskRepository;
+import com.service.task.repository.TaskDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +11,22 @@ import java.util.List;
 public class TaskServiceImple implements TaskService {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskDetailsRepository taskDetailsRepository;
 
     @Override
     public TaskDetails createTask(TaskDetails taskDetails) {
-        return taskRepository.save(taskDetails);
+        return taskDetailsRepository.save(taskDetails);
     }
 
     @Override
     public TaskDetails readtask(Long taskId) {
-        return taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("cannot find task with id :"+taskId));
+        return taskDetailsRepository.findById(taskId).orElseThrow(() -> new RuntimeException("cannot find task with id :"+taskId));
     }
 
     @Override
     public TaskDetails deleteTask(Long taskId) {
         TaskDetails taskDetails = readtask(taskId);
-        taskRepository.deleteById(taskId);
+        taskDetailsRepository.deleteById(taskId);
         return taskDetails;
     }
 
@@ -39,30 +39,30 @@ public class TaskServiceImple implements TaskService {
             newTaskDetails.setDescription(taskDetails.getDescription());
         newTaskDetails.setStudentIds(taskDetails.getStudentIds());
 
-        return taskRepository.save(newTaskDetails);
+        return taskDetailsRepository.save(newTaskDetails);
     }
 
     @Override
     public List<TaskDetails> getAllTasks() {
-        return taskRepository.findAll();
+        return taskDetailsRepository.findAll();
     }
 
     @Override
     public List<Long> getAllStudents(Long taskId) {
-        return taskRepository.findStudentsByTaskId(taskId);
+        return taskDetailsRepository.findStudentsByTaskId(taskId);
     }
 
     @Override
     public void addNewStudents(Long taskId, List<Long> stuIds) {
         List<Long> studentIds=getAllStudents(taskId);
         studentIds.addAll(stuIds);
-        taskRepository.updateStudents(taskId,studentIds);
+        taskDetailsRepository.updateStudents(taskId,studentIds);
     }
 
     @Override
     public void deleteStudent(Long taskId, Long stuId) {
         List<Long> studentIds=getAllStudents(taskId);
         studentIds.remove(stuId);
-        taskRepository.updateStudents(taskId,studentIds);
+        taskDetailsRepository.updateStudents(taskId,studentIds);
     }
 }
