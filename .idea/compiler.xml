@@ -10,11 +10,14 @@
         <module name="api-gateway" />
         <module name="student-service" />
         <module name="config-server" />
-        <module name="task-service" />
         <module name="teacher-service" />
+        <module name="taskDetails-service" />
         <module name="service-registry" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="task-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -23,6 +26,7 @@
       <module name="service-registry" options="-parameters" />
       <module name="student-service" options="-parameters" />
       <module name="task-service" options="-parameters" />
+      <module name="taskDetails-service" options="-parameters" />
       <module name="teacher-service" options="-parameters" />
     </option>
   </component>

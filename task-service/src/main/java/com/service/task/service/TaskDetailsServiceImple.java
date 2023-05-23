@@ -19,20 +19,20 @@ public class TaskDetailsServiceImple implements TaskDetailsService {
     }
 
     @Override
-    public TaskDetails readtask(Long taskId) {
+    public TaskDetails getTaskById(Long taskId) {
         return taskDetailsRepository.findById(taskId).orElseThrow(() -> new RuntimeException("cannot find task with id :"+taskId));
     }
 
     @Override
     public TaskDetails deleteTask(Long taskId) {
-        TaskDetails taskDetails = readtask(taskId);
+        TaskDetails taskDetails = getTaskById(taskId);
         taskDetailsRepository.deleteById(taskId);
         return taskDetails;
     }
 
     @Override
     public TaskDetails updateTask(TaskDetails taskDetails) {
-        TaskDetails newTaskDetails = readtask(taskDetails.getTaskId());
+        TaskDetails newTaskDetails = getTaskById(taskDetails.getTaskId());
         if(taskDetails.getName()!=null)
             newTaskDetails.setName(taskDetails.getName());
         if(taskDetails.getDescription()!=null)

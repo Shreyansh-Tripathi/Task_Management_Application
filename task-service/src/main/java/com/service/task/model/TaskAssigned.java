@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 public class TaskAssigned {
 
-    @NotNull(message = "taskId cannot be null")
+    @NotNull(message = "task Id cannot be null")
     private Long taskId;
 
     @NotNull(message = "student roll number cannot be null")

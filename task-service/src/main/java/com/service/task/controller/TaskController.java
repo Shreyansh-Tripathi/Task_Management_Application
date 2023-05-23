@@ -28,7 +28,7 @@ public class TaskController {
 
     @GetMapping("/getTaskById")
     public TaskDetails getTaskById(@RequestParam Long taskId){
-        return taskDetailsService.readtask(taskId);
+        return taskDetailsService.getTaskById(taskId);
     }
 
     @GetMapping("/getAllTasks")
