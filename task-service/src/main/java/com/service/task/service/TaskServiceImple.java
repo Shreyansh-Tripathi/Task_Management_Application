@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TaskDetailsServiceImple implements TaskDetailsService {
+public class TaskServiceImple implements TaskDetailsService, TaskAssignedService {
 
     @Autowired
     private TaskDetailsRepository taskDetailsRepository;
@@ -37,7 +37,6 @@ public class TaskDetailsServiceImple implements TaskDetailsService {
             newTaskDetails.setName(taskDetails.getName());
         if(taskDetails.getDescription()!=null)
             newTaskDetails.setDescription(taskDetails.getDescription());
-        newTaskDetails.setStudentIds(taskDetails.getStudentIds());
 
         return taskDetailsRepository.save(newTaskDetails);
     }
@@ -47,22 +46,57 @@ public class TaskDetailsServiceImple implements TaskDetailsService {
         return taskDetailsRepository.findAll();
     }
 
+//    @Override
+//    public List<Long> getAllStudents(Long taskId) {
+//        return taskDetailsRepository.findStudentsByTaskId(taskId);
+//    }
+
+//    @Override
+//    public void addNewStudents(Long taskId, List<Long> stuIds) {
+//        List<Long> studentIds=getAllStudents(taskId);
+//        studentIds.addAll(stuIds);
+//        taskDetailsRepository.updateStudents(taskId,studentIds);
+//    }
+//
+//    @Override
+//    public void deleteStudent(Long taskId, Long stuId) {
+//        List<Long> studentIds=getAllStudents(taskId);
+//        studentIds.remove(stuId);
+//        taskDetailsRepository.updateStudents(taskId,studentIds);
+//    }
+
     @Override
-    public List<Long> getAllStudents(Long taskId) {
-        return taskDetailsRepository.findStudentsByTaskId(taskId);
+    public List<Long> getStudentsByTaskId(Long taskId) {
+        return null;
     }
 
     @Override
-    public void addNewStudents(Long taskId, List<Long> stuIds) {
-        List<Long> studentIds=getAllStudents(taskId);
-        studentIds.addAll(stuIds);
-        taskDetailsRepository.updateStudents(taskId,studentIds);
+    public List<Long> getTasksByStudentRoll(Long rollNum) {
+        return null;
     }
 
     @Override
-    public void deleteStudent(Long taskId, Long stuId) {
-        List<Long> studentIds=getAllStudents(taskId);
-        studentIds.remove(stuId);
-        taskDetailsRepository.updateStudents(taskId,studentIds);
+    public void deleteStudentAssigned(Long rollNumber, Long taskId) {
+
+    }
+
+    @Override
+    public void deleteTaskById(Long taskId) {
+
+    }
+
+    @Override
+    public void deleteAllStudentTasks(Long rollNum) {
+
+    }
+
+    @Override
+    public void addNewStudent(Long taskId, Long rollNum) {
+
+    }
+
+    @Override
+    public void addManyStudents(Long taskId, List<Long> rollNums) {
+
     }
 }
