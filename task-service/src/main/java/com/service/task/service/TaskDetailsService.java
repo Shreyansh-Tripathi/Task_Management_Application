@@ -5,7 +5,8 @@ import com.service.task.model.TaskDetails;
 import java.util.List;
 
 public interface TaskDetailsService {
-    public TaskDetails createTask(TaskDetails taskDetails);
+
+    TaskDetails createTask(TaskDetails taskDetails, List<Long> studentRollNums);
 
     public TaskDetails getTaskById(Long taskId);
 
