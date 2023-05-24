@@ -1,5 +1,6 @@
 package com.service.task.repository;
 
+
 import com.service.task.model.TaskAssigned;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +23,7 @@ public interface TaskAssignedRepository extends JpaRepository<TaskAssigned,Integ
     @Modifying
     @Transactional
     @Query(value = "delete from task_assigned where student_roll_num = :rollNum",nativeQuery = true)
-    public void deleteAllStudentTasks(@Param("taskId") Long rollNum);
+    public void deleteAllStudentTasks(@Param("rollNum") Long rollNum);
 
     @Modifying
     @Transactional
