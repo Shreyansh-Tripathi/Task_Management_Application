@@ -33,14 +33,14 @@ public class TaskController {
 
     @PostMapping("/createTask")
     public TaskDetails createTask(@RequestBody TaskDetails taskDetails, @RequestParam List<Long> stuRollNums){
-        TaskDetails t= taskDetailsService.createTask(taskDetails, stuRollNums);
-        taskAssignedService.addManyStudentsTasks(taskDetails.getTaskId(), stuRollNums);
+        TaskDetails t= taskDetailsService.createTask(taskDetails);
+        taskAssignedService.addManyStudentsToTask(taskDetails.getTaskId(), stuRollNums);
         return t;
     }
 
     @DeleteMapping("/deleteTaskById")
     public TaskDetails deleteTaskById(@RequestParam Long taskId){
-        TaskDetails task= taskDetailsService.deleteTask(taskId);
+        TaskDetails task= taskDetailsService.deleteTaskDetails(taskId);
         taskAssignedService.deleteTaskById(taskId);
         return task;
     }
@@ -52,7 +52,7 @@ public class TaskController {
 
     @PostMapping("/addStudentsToTask")
     public void addStudentsToTask(@RequestParam Long taskId, @RequestParam List<Long> stuIds){
-         taskAssignedService.addManyStudentsTasks(taskId,stuIds);
+         taskAssignedService.addManyStudentsToTask(taskId,stuIds);
     }
 
     @PostMapping("/addStudentToTask")
@@ -77,6 +77,6 @@ public class TaskController {
 
     @GetMapping("/getTasksOfStudent")
     public List<Long> getTasksOfStudent(Long rollNum){
-        return taskAssignedService.getTasksByStudentRoll(rollNum);
+        return taskAssignedService.getTasksOfStudent(rollNum);
     }
 }

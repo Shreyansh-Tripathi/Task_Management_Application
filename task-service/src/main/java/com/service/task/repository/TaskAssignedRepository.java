@@ -34,5 +34,4 @@ public interface TaskAssignedRepository extends JpaRepository<TaskAssigned,Integ
     @Query(value = "delete from task_assigned where task_id = :taskId and student_roll_num = :rollNum",nativeQuery = true)
     public void deleteStudentFromTask(@Param("taskId") Long taskId, @Param("rollNum") Long rollNum);
 
-
 }

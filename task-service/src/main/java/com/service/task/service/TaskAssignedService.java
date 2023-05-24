@@ -6,7 +6,7 @@ public interface TaskAssignedService {
 
     public List<Long> getStudentsByTaskId(Long taskId);
 
-    public List<Long> getTasksByStudentRoll(Long rollNum);
+    public List<Long> getTasksOfStudent(Long rollNum);
 
     public void deleteStudentFromTask(Long rollNumber, Long taskId);
 
@@ -16,5 +16,5 @@ public interface TaskAssignedService {
 
     public void addStudentToTask(Long taskId, Long rollNum);
 
-    public void addManyStudentsTasks(Long taskId, List<Long> rollNums);
+    public void addManyStudentsToTask(Long taskId, List<Long> rollNums);
 }

@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface TaskDetailsService {
 
-    TaskDetails createTask(TaskDetails taskDetails, List<Long> studentRollNums);
+    TaskDetails createTask(TaskDetails taskDetails);
 
     public TaskDetails getTaskById(Long taskId);
 
-    public TaskDetails deleteTask(Long taskId);
+    public TaskDetails deleteTaskDetails(Long taskId);
 
     public TaskDetails updateTask(TaskDetails taskDetails);
 

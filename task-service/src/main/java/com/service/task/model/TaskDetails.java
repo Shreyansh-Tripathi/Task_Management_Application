@@ -22,5 +22,5 @@ public class TaskDetails {
     @NotNull(message = "name cannot be null")
     private String description;
     @NotNull(message = "teacher cannot be null")
-    private Long teacherId;
+    private Long employeeId;
 }

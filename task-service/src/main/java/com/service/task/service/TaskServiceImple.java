@@ -27,7 +27,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     private StudentClient studentClient;
 
     @Override
-    public TaskDetails createTask(TaskDetails taskDetails, List<Long> studentRollNums) {
+    public TaskDetails createTask(TaskDetails taskDetails) {
         return taskDetailsRepository.save(taskDetails);
     }
 
@@ -37,7 +37,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public TaskDetails deleteTask(Long taskId) {
+    public TaskDetails deleteTaskDetails(Long taskId) {
         TaskDetails taskDetails = getTaskById(taskId);
         taskDetailsRepository.deleteById(taskId);
         return taskDetails;
@@ -70,7 +70,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public List<Long> getTasksByStudentRoll(Long rollNum) {
+    public List<Long> getTasksOfStudent(Long rollNum) {
         return taskAssignedRepository.getTasksOfStudent(rollNum);
     }
 
@@ -96,7 +96,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public void addManyStudentsTasks(Long taskId, List<Long> rollNums) {
+    public void addManyStudentsToTask(Long taskId, List<Long> rollNums) {
         for(long rollNum : rollNums){
             TaskAssigned task=new TaskAssigned(taskId,rollNum);
             taskAssignedRepository.save(task);
