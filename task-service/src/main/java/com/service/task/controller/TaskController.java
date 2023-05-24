@@ -56,8 +56,8 @@ public class TaskController {
     }
 
     @PostMapping("/addStudentToTask")
-    public void addStudentToTask(@RequestParam Long taskId, @RequestParam Long stuIds){
-        taskAssignedService.addStudentToTask(taskId,stuIds);
+    public void addStudentToTask(@RequestParam Long taskId, @RequestParam Long stuId){
+        taskAssignedService.addStudentToTask(taskId,stuId);
     }
 
     @DeleteMapping("/deleteStudentFromTask")

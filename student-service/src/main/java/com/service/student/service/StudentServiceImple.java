@@ -63,23 +63,8 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public List<Long> getTasks(Long rollNum) {
-        return taskClient.getTasksOfStudent(rollNum);
-    }
-
-    @Override
     public Long getCoordinator(Long empId) {
         return studentRepository.findByCoordinator(empId);
-    }
-
-    @Override
-    public void addNewTask(Long stuId,Long taskId) {
-        taskClient.addStudentToTask(taskId, stuId);
-    }
-
-    @Override
-    public void deleteTask(Long rollNum, Long taskId) {
-        taskClient.deleteStudentFromTask(taskId,rollNum);
     }
 
     @Override

@@ -43,21 +43,6 @@ public class StudentController {
         return studentService.updateStudent(student);
     }
 
-    @PostMapping("/addNewTask")
-    public void addNewTask(@RequestParam Long rollNum,@RequestParam Long taskId){
-        studentService.addNewTask(rollNum,taskId);
-    }
-
-    @PatchMapping("/deleteTask")
-    public void deleteTask(@RequestParam Long rollNum,@RequestParam Long taskId){
-        studentService.deleteTask(rollNum,taskId);
-    }
-
-    @GetMapping("/getAllStudentTasks")
-    public List<Long> getAllStudentTasks(@RequestParam Long rollNum){
-        return studentService.getTasks(rollNum);
-    }
-
     @PatchMapping("/addTeacher")
     public void addTeacher(@RequestParam Long rollNum,@RequestParam Long empId){
         studentService.addTeacher(rollNum,empId);

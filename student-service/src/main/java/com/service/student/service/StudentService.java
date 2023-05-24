@@ -17,13 +17,7 @@ public interface StudentService {
 
     public Student updateStudent(Student student);
 
-    public List<Long> getTasks(Long rollNum);
-
     public Long getCoordinator(Long empId);
-
-    public void addNewTask(Long stuId,Long taskId);
-
-    public void deleteTask(Long stuId,Long taskId);
 
     public void addTeacher(Long stuId,Long empId);
 
