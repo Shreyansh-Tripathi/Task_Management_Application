@@ -15,14 +15,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @EntityGraph(attributePaths = {"coordinator"})
     public Long findByCoordinator (@Param("coordinator") Long coordinator);
 
-    @Query(value = "select task_ids from student where student_id = :stuId", nativeQuery = true)
+    @Query(value = "select task_id from task_assigned where student_roll_num = :stuId", nativeQuery = true)
     public List<Long> findTasksByStudentId (@Param("stuId")Long stuId);
-
-    @Query(value = "update student set task_ids = :taskIds where student_id = :stuId",nativeQuery = true)
-    public void addNewTask(@Param("stuId")Long stuId, @Param("taskIds") List<Long> taskIds);
-
-    @Query(value = "update student set task_ids = :taskIds where student_id = :stuId",nativeQuery = true)
-    public void deleteTask(@Param("stuId")Long stuId, @Param("taskIds") List<Long> taskIds);
 
     @Query(value = "update student set coordinator = :empId where student_id = :stuId",nativeQuery = true)
     public void updateTeacher(@Param("stuId")Long stuId, @Param("empId") Long empId);

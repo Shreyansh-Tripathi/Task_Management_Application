@@ -13,12 +13,6 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
-    @Autowired
-    private TeacherClient teacherClient;
-
-    @Autowired
-    private TaskClient taskClient;
-
     private final StudentService studentService;
 
     @Autowired
@@ -38,19 +32,11 @@ public class StudentController {
 
     @PostMapping("/createStudent")
     public Student createStudent(@RequestBody Student student){
-        Student stu= studentService.createStudent(student);
-        teacherClient.addNewStudent(student.getCoordinator(),student.getRollNumber());
-        return stu;
+        return studentService.createStudent(student);
     }
 
     @DeleteMapping("/deleteStudentByRollNumber")
     public Student deleteStudentByRollNumber(@RequestParam Long rollNum){
-        Student student=getStudentByRollNumber(rollNum);
-        teacherClient.removeStudent(student.getCoordinator(),rollNum);
-        List<Long> tasks=student.getTaskIds();
-        for(Long task : tasks){
-            taskClient.deleteStudentFromTask(task,rollNum);
-        }
         return studentService.deleteStudent(rollNum);
     }
 
@@ -59,7 +45,7 @@ public class StudentController {
         return studentService.updateStudent(student);
     }
 
-    @PatchMapping("/addNewTask")
+    @PostMapping("/addNewTask")
     public void addNewTask(@RequestParam Long rollNum,@RequestParam Long taskId){
         studentService.addNewTask(rollNum,taskId);
     }

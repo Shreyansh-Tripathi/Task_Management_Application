@@ -1,6 +1,4 @@
-package com.service.task.request;
-
-import java.util.List;
+package com.service.student.request;
 
 public record Teacher(Long empId, String name, String email, String contact) {
 }

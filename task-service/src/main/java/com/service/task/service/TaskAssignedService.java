@@ -14,7 +14,7 @@ public interface TaskAssignedService {
 
     public void deleteAllStudentTasks(Long rollNum);
 
-    public void addStudentTask(Long taskId, Long rollNum);
+    public void addStudentToTask(Long taskId, Long rollNum);
 
     public void addManyStudentsTasks(Long taskId, List<Long> rollNums);
 }

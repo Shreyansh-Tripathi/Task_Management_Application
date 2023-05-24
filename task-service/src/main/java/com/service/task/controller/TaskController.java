@@ -50,13 +50,23 @@ public class TaskController {
         return taskDetailsService.updateTask(taskDetails);
     }
 
-    @PatchMapping("/addStudentToTask")
+    @PostMapping("/addStudentsToTask")
     public void addStudentsToTask(@RequestParam Long taskId, @RequestParam List<Long> stuIds){
          taskAssignedService.addManyStudentsTasks(taskId,stuIds);
     }
 
-    @PatchMapping("/deleteStudentFromTask")
+    @PostMapping("/addStudentToTask")
+    public void addStudentToTask(@RequestParam Long taskId, @RequestParam Long stuIds){
+        taskAssignedService.addStudentToTask(taskId,stuIds);
+    }
+
+    @DeleteMapping("/deleteStudentFromTask")
     public void deleteStudentFromTask(@RequestParam Long taskId, @RequestParam Long stuId){
         taskAssignedService.deleteStudentFromTask(stuId,taskId);
+    }
+
+    @DeleteMapping("/deleteAllStudentTasks")
+    public void deleteAllStudentTasks(@RequestParam Long rollNum){
+        taskAssignedService.deleteAllStudentTasks(rollNum);
     }
 }

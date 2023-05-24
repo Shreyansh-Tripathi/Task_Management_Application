@@ -85,7 +85,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public void addStudentTask(Long taskId, Long rollNum) {
+    public void addStudentToTask(Long taskId, Long rollNum) {
         TaskAssigned task=new TaskAssigned(taskId,rollNum);
         taskAssignedRepository.save(task);
     }
