@@ -76,11 +76,6 @@ public class TeacherServiceImple implements TeacherService {
     }
 
     @Override
-    public List<Long> getTasksOfTeacher(Long empId) {
-        return taskClient.getTasksOfTeacher(empId);
-    }
-
-    @Override
     public List<Long> getStudentsOfTeacher(Long empId) {
         return studentClient.getStudentsOfTeacher(empId);
     }
