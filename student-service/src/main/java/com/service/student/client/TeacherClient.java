@@ -6,9 +6,9 @@ import org.springframework.web.service.annotation.PatchExchange;
 
 @HttpExchange
 public interface TeacherClient {
-    @PatchExchange("/teachers/addNewStudent")
-    public void addNewStudent(@RequestParam Long empId, @RequestParam Long stuRollNum);
-
-    @PatchExchange("/removeStudent")
-    public void removeStudent(@RequestParam Long empId,@RequestParam Long stuRollNum);
+//    @PatchExchange("/teachers/addNewStudent")
+//    public void addNewStudent(@RequestParam Long empId, @RequestParam Long stuRollNum);
+//
+//    @PatchExchange("/removeStudent")
+//    public void removeStudent(@RequestParam Long empId,@RequestParam Long stuRollNum);
 }
