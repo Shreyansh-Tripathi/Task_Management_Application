@@ -1,6 +1,8 @@
 package com.service.teacher.service;
 
 
+import com.service.teacher.client.StudentClient;
+import com.service.teacher.client.TaskClient;
 import com.service.teacher.model.Teacher;
 import com.service.teacher.repository.TeacherRepository;
 import jakarta.annotation.PostConstruct;
@@ -18,6 +20,12 @@ public class TeacherServiceImple implements TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    @Autowired
+    private StudentClient studentClient;
+
+    @Autowired
+    private TaskClient taskClient;
+
     public WebClient taskWebClient, studentWebClient;
 
     @PostConstruct
@@ -34,8 +42,6 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public Teacher createTeacher(Teacher teacher) {
-        teacher.setTaskIds(new ArrayList<Long>());
-        teacher.setStudentIds(new ArrayList<Long>());
         return teacherRepository.save(teacher);
     }
 
@@ -52,10 +58,7 @@ public class TeacherServiceImple implements TeacherService {
     @Override
     public Teacher deleteTeacher(Long empId) {
         Teacher teacher = readTeacher(empId);
-        List<Long> students = getStudents(empId);
-        for(long id : students){
-            studentWebClient.delete().uri("/removeTeacher?rollNum="+id);
-        }
+        studentClient.removeTeacherWithId(empId);
         teacherRepository.deleteById(empId);
         return teacher;
     }
@@ -73,65 +76,19 @@ public class TeacherServiceImple implements TeacherService {
     }
 
     @Override
-    public List<Long> getStudents(Long empId) {
-        return teacherRepository.findByEmployeeId(empId);
+    public List<Long> getTasksOfTeacher(Long empId) {
+        return taskClient.getTasksOfTeacher(empId);
     }
 
     @Override
-    public List<Long> getTasks(Long empId) {
-        return teacherRepository.findTasksByEmpId(empId);
+    public List<Long> getStudentsOfTeacher(Long empId) {
+        return studentClient.getStudentsOfTeacher(empId);
     }
 
-    @Override
-    public void addTask(Long empId, Long taskId) {
-        List<Long> tasks=getTasks(empId);
-        tasks.add(taskId);
-        teacherRepository.addNewTask(empId,tasks);
-    }
 
-    @Override
-    public void deleteTask(Long empId, Long taskId) {
-        List<Long> tasks=getTasks(empId);
-        tasks.remove(taskId);
-        teacherRepository.addNewTask(empId,tasks);
-    }
-
-    @Override
-    public void addStudent(Long empId, Long studentId) {
-        List<Long> students=getStudents(empId);
-        System.out.println(students);
-        students.add(studentId);
-        System.out.println(students);
-        teacherRepository.updateStudents(empId,students);
-    }
-
-    @Override
-    public void removeStudent(Long empId, Long studentId) {
-        List<Long> students=getStudents(empId);
-        students.remove(studentId);
-        teacherRepository.updateStudents(empId,students);
-    }
-
-    @Override
-    public void addManyStudents(Long empId, List<Long> stuIds) {
-        List<Long> students=getStudents(empId);
-        System.out.println(students);
-        students.addAll(stuIds);
-        System.out.println(students);
-        Teacher teacher=readTeacher(empId);
-        teacher.setStudentIds(students);
-        teacherRepository.save(teacher);
-        System.out.println(students);
-    }
-
+    //to import dummy json data
     @Override
     public List<Teacher> jsonImport(List<Teacher> teachers) {
-        teachers.forEach(
-                teacher -> {
-                    teacher.setTaskIds(new ArrayList<Long>());
-                    teacher.setStudentIds(new ArrayList<Long>());
-                }
-        );
         return teacherRepository.saveAll(teachers);
     }
 }

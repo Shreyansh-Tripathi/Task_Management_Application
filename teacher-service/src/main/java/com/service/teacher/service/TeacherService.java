@@ -15,19 +15,9 @@ public interface TeacherService {
 
     public Teacher updateTeacher(Teacher teacher);
 
-    public List<Long> getStudents(Long empId);
+    public List<Long> getTasksOfTeacher(Long empId);
 
-    public List<Long> getTasks(Long empId);
-
-    public void addTask(Long empId, Long taskId);
-
-    public void deleteTask(Long empId, Long taskId);
-
-    public void addStudent(Long empId, Long rollNum);
-
-    public void removeStudent(Long empId, Long studentId);
-
-    public void addManyStudents(Long empId, List<Long> stuIds);
+    public List<Long> getStudentsOfTeacher(Long empId);
 
     List<Teacher> jsonImport(List<Teacher> teachers);
 }

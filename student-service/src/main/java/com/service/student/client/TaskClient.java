@@ -1,10 +1,10 @@
 package com.service.student.client;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.service.annotation.DeleteExchange;
-import org.springframework.web.service.annotation.HttpExchange;
-import org.springframework.web.service.annotation.PatchExchange;
-import org.springframework.web.service.annotation.PostExchange;
+import org.springframework.web.service.annotation.*;
+
+import java.util.List;
 
 @HttpExchange
 public interface TaskClient {
@@ -17,4 +17,7 @@ public interface TaskClient {
 
     @PostExchange("/addStudentToTask")
     public void addStudentToTask(@RequestParam Long taskId, @RequestParam Long stuIds);
+
+    @GetExchange("/getTasksOfStudent")
+    public List<Long> getTasksOfStudent(Long rollNum);
 }

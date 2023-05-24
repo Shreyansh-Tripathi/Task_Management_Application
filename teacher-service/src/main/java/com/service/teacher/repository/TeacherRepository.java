@@ -16,24 +16,4 @@ import java.util.List;
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
 //    either use entity graph or native query
-    @Query(value = "select student_ids from teacher where employee_id = :empId", nativeQuery = true)
-    public List<Long> findByEmployeeId (@Param("empId") Long empId);
-
-    @Query(value = "select task_ids from teacher where employee_id = :empId", nativeQuery = true)
-    public List<Long> findTasksByEmpId (@Param("empId")Long empId);
-
-    @Modifying
-    @Transactional
-    @Query(value = "update teacher set student_ids = :stuIds where employee_id = :empId",nativeQuery = true)
-    public void updateStudents(@Param("empId")Long empId, @Param("stuIds")List<Long> stuIds);
-
-    @Modifying
-    @Transactional
-    @Query(value = "update teacher set task_ids = :taskIds where employee_id = :empId",nativeQuery = true)
-    public void addNewTask(@Param("empId")Long empId, @Param("taskIds") List<Long> taskIds);
-
-    @Modifying
-    @Transactional
-    @Query(value = "update teacher set task_ids = :taskIds where employee_id = :empId",nativeQuery = true)
-    public void deleteTask(@Param("empId")Long empId, @Param("taskIds") List<Long> taskIds);
 }

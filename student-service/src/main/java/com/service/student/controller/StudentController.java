@@ -1,7 +1,5 @@
 package com.service.student.controller;
 
-import com.service.student.client.TaskClient;
-import com.service.student.client.TeacherClient;
 import com.service.student.model.Student;
 import com.service.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,14 +53,29 @@ public class StudentController {
         studentService.deleteTask(rollNum,taskId);
     }
 
+    @GetMapping("/getAllStudentTasks")
+    public List<Long> getAllStudentTasks(@RequestParam Long rollNum){
+        return studentService.getTasks(rollNum);
+    }
+
     @PatchMapping("/addTeacher")
     public void addTeacher(@RequestParam Long rollNum,@RequestParam Long empId){
         studentService.addTeacher(rollNum,empId);
     }
 
-    @PatchMapping("/removeTeacher")
-    public void removeTeacher(@RequestParam Long rollNum){
-        studentService.deleteTeacher(rollNum);
+    @PatchMapping("/removeTeacherOfStudent")
+    public void removeTeacherOfStudent(@RequestParam Long rollNum){
+        studentService.deleteTeacherOfStudent(rollNum);
+    }
+
+    @PatchMapping("/removeTeacherWithId")
+    public void removeTeacherWithId(@RequestParam Long empId){
+        studentService.deleteTeachersWithId(empId);
+    }
+
+    @GetMapping("/getStudentsOfTeacher")
+    public List<Long> getStudentsOfTeacher(@RequestParam Long empId){
+        return studentService.getStudentsOfTeacher(empId);
     }
 
     @PostMapping("/jsonImport")

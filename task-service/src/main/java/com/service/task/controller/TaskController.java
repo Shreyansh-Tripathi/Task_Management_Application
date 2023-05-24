@@ -69,4 +69,14 @@ public class TaskController {
     public void deleteAllStudentTasks(@RequestParam Long rollNum){
         taskAssignedService.deleteAllStudentTasks(rollNum);
     }
+
+    @GetMapping("/getTasksOfTeacher")
+    public List<Long> getTasksOfTeacher(Long empId){
+        return taskDetailsService.getTasksOfTeacher(empId);
+    }
+
+    @GetMapping("/getTasksOfStudent")
+    public List<Long> getTasksOfStudent(Long rollNum){
+        return taskAssignedService.getTasksByStudentRoll(rollNum);
+    }
 }

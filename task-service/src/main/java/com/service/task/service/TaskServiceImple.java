@@ -60,6 +60,11 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
+    public List<Long> getTasksOfTeacher(Long empId) {
+        return taskDetailsRepository.getTasksOfTeacher(empId);
+    }
+
+    @Override
     public List<Long> getStudentsByTaskId(Long taskId) {
         return taskAssignedRepository.getStudentsOfTask(taskId);
     }

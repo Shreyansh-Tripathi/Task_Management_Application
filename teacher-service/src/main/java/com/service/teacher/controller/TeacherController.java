@@ -13,12 +13,6 @@ import java.util.List;
 @RequestMapping("/teachers")
 public class TeacherController {
 
-    @Autowired
-    private StudentClient studentClient;
-
-    @Autowired
-    private TaskClient taskClient;
-
     public TeacherService teacherService;
 
     @Autowired
@@ -51,47 +45,10 @@ public class TeacherController {
         return teacherService.updateTeacher(teacher);
     }
 
-    @PatchMapping("/addNewTask")
-    public void addNewTask(@RequestParam Long empId,@RequestParam Long taskId){
-        teacherService.addTask(empId,taskId);
-    }
 
-    @PatchMapping("/deleteTask")
-    public void deleteTask(@RequestParam Long empId,@RequestParam Long taskId){
-        teacherService.deleteTask(empId,taskId);
-    }
-
-    @PatchMapping("/addNewStudent")
-    public void addNewStudent(@RequestParam Long empId,@RequestParam Long rollNum){
-        teacherService.addStudent(empId,rollNum);
-    }
-
-    @PatchMapping("/removeStudent")
-    public void removeStudent(@RequestParam Long empId,@RequestParam Long rollNum){
-        teacherService.removeStudent(empId,rollNum);
-    }
-
-    @PatchMapping("/addManyStudents")
-    public void addManyStudents(@RequestParam Long empId,@RequestParam List<Long> stuIds){
-        teacherService.addManyStudents(empId,stuIds);
-    }
-
-    @PatchMapping("/updateStudentsOfTeacher")
-    public void updateStudents(@RequestParam Long empId, @RequestParam List<Long> newStudents){
-        List<Long> oldStudents=teacherService.getStudents(empId);
-
-        for(long id : newStudents){
-            if(!oldStudents.contains(id)) {
-                teacherService.addStudent(empId, id);
-                studentClient.addTeacher(id, empId);
-            }
-        }
-        for(long id : oldStudents){
-            if(!newStudents.contains(id)) {
-                teacherService.removeStudent(empId, id);
-                studentClient.removeTeacher(id);
-            }
-        }
+    @GetMapping("/getStudentsOfTeacher")
+    public List<Long> getStudentsOfTeacher(@RequestParam Long empId){
+        return teacherService.getStudentsOfTeacher(empId);
     }
 
     //to import teachers data

@@ -15,4 +15,6 @@ public interface TaskDetailsService {
     public TaskDetails updateTask(TaskDetails taskDetails);
 
     public List<TaskDetails> getAllTasks();
+
+    public List<Long> getTasksOfTeacher(Long empId);
 }
