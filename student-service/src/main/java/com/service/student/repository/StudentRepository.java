@@ -1,8 +1,10 @@
 package com.service.student.repository;
 
 import com.service.student.model.Student;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -15,9 +17,13 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @EntityGraph(attributePaths = {"coordinator"})
     public Long findByCoordinator (@Param("coordinator") Long coordinator);
 
+    @Modifying
+    @Transactional
     @Query(value = "update student set coordinator = :empId where roll_number = :rollNum",nativeQuery = true)
     public void updateTeacher(@Param("rollNum")Long rollNum, @Param("empId") Long empId);
 
+    @Modifying
+    @Transactional
     @Query(value = "update student set coordinator = -1 where coordinator = :empId",nativeQuery = true)
     public void deleteTeachersWithId(@Param("empId") Long empId);
 
