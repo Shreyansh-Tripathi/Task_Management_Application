@@ -14,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TeacherServiceImple implements TeacherService {
@@ -28,6 +29,8 @@ public class TeacherServiceImple implements TeacherService {
 
     public WebClient taskWebClient, studentWebClient;
 
+
+    //for static client access
     @PostConstruct
     public void init(){
         taskWebClient= WebClient.builder()
@@ -42,12 +45,15 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public Teacher createTeacher(Teacher teacher) {
+        if(teacher.getContact().isEmpty() || teacher.getName().isEmpty() || teacher.getEmail().isEmpty()){
+            throw new RuntimeException("Input field(s) not provided");
+        }
         return teacherRepository.save(teacher);
     }
 
     @Override
     public Teacher readTeacher(Long empId) {
-        return teacherRepository.findById(empId).orElseThrow(() -> new RuntimeException("cannot find teacher with id :"+empId));
+        return teacherRepository.findById(empId).orElseThrow(() -> new NoSuchElementException("cannot find teacher with id :"+empId));
     }
 
     @Override
@@ -57,6 +63,9 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public Teacher deleteTeacher(Long empId) {
+        if(empId<=0){
+            throw new NoSuchElementException("Cannot find teacher");
+        }
         Teacher teacher = readTeacher(empId);
         studentClient.removeTeacherWithId(empId);
         teacherRepository.deleteById(empId);
@@ -77,11 +86,17 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public List<Long> getStudentsOfTeacher(Long empId) {
+        if(empId<=0){
+            throw new NoSuchElementException("Cannot find teacher");
+        }
         return studentClient.getStudentsOfTeacher(empId);
     }
 
     @Override
     public List<Long> getTasksOfTeacher(Long empId) {
+        if(empId<=0){
+            throw new NoSuchElementException("Cannot find teacher");
+        }
         return taskClient.getTaskIdsOfTeacher(empId);
     }
 
