@@ -7,8 +7,8 @@ import com.service.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class StudentServiceImple implements StudentService{
@@ -24,12 +24,15 @@ public class StudentServiceImple implements StudentService{
 
     @Override
     public Student createStudent(Student student) {
+        if(student.getContact().isEmpty() || student.getName().isEmpty() || student.getEmail().isEmpty()){
+            throw new RuntimeException("Input field(s) not provided");
+        }
         return studentRepository.save(student);
     }
 
     @Override
     public Student getStudent(Long rollNum) {
-        return studentRepository.findById(rollNum).orElseThrow(() -> new RuntimeException("cannot find student with roll number: "+rollNum));
+        return studentRepository.findById(rollNum).orElseThrow(() -> new NoSuchElementException("Cannot find student with roll number: "+rollNum));
     }
 
     @Override
@@ -69,6 +72,12 @@ public class StudentServiceImple implements StudentService{
 
     @Override
     public void addTeacher(Long stuId, Long empId) {
+        if(empId==-1){
+            throw new RuntimeException("Cannot add invalid coordinator to student");
+        }
+        if(stuId==-1){
+            throw new NoSuchElementException("Cannot find student");
+        }
         studentRepository.updateTeacher(stuId, empId);
     }
 
@@ -79,11 +88,17 @@ public class StudentServiceImple implements StudentService{
 
     @Override
     public void deleteTeachersWithId(Long empId) {
+        if(empId==-1){
+            throw new RuntimeException("Cannot DELETE invalid coordinator from student");
+        }
         studentRepository.deleteTeachersWithId(empId);
     }
 
     @Override
     public List<Long> getTasksOfStudent(Long rollNum) {
+        if(rollNum==-1){
+            throw new NoSuchElementException("Cannot find student");
+        }
         return taskClient.getTaskIdsOfStudent(rollNum);
     }
 
