@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TaskDetailsService {
 
-    TaskDetails createTask(TaskDetails taskDetails);
+    public TaskDetails createTask(TaskDetails taskDetails);
 
     public TaskDetails getTaskById(Long taskId);
 
@@ -16,5 +16,7 @@ public interface TaskDetailsService {
 
     public List<TaskDetails> getAllTasks();
 
-    public List<Long> getTasksOfTeacher(Long empId);
+    public List<TaskDetails> getTasksOfTeacher(Long empId);
+
+    public List<Long> getTaskIdsOfTeacher(Long empId);
 }

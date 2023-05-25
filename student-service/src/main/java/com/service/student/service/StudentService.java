@@ -11,7 +11,7 @@ public interface StudentService {
 
     public List<Student> getAllStudents();
 
-    public List<Long> getStudentsOfTeacher(long empId);
+    public List<Student> getStudentsOfTeacher(long empId);
 
     public Student deleteStudent(Long rollNum);
 
@@ -24,6 +24,8 @@ public interface StudentService {
     public void deleteTeacherOfStudent(Long stuId);
 
     public void deleteTeachersWithId(Long empId);
+
+    public List<Long> getTasksOfStudent(Long rollNum);
 
     List<Student> jsonImport(List<Student> teachers);
 }

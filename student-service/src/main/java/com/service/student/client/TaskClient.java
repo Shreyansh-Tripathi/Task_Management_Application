@@ -11,4 +11,7 @@ public interface TaskClient {
     @DeleteExchange("/deleteAllStudentTasks")
     public void deleteAllStudentTasks(@RequestParam Long rollNum);
 
+    @GetExchange("/getTaskIdsOfStudent")
+    public List<Long> getTaskIdsOfStudent(@RequestParam Long rollNum);
+
 }

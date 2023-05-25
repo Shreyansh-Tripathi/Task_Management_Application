@@ -38,7 +38,7 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public List<Long> getStudentsOfTeacher(long empId) {
+    public List<Student> getStudentsOfTeacher(long empId) {
         return studentRepository.getStudentsOfTeacher(empId);
     }
 
@@ -80,6 +80,11 @@ public class StudentServiceImple implements StudentService{
     @Override
     public void deleteTeachersWithId(Long empId) {
         studentRepository.deleteTeachersWithId(empId);
+    }
+
+    @Override
+    public List<Long> getTasksOfStudent(Long rollNum) {
+        return taskClient.getTaskIdsOfStudent(rollNum);
     }
 
     @Override

@@ -1,12 +1,17 @@
 package com.service.task.service;
 
+import com.service.task.model.TaskDetails;
+import org.springframework.scheduling.config.Task;
+
 import java.util.List;
 
 public interface TaskAssignedService {
 
     public List<Long> getStudentsByTaskId(Long taskId);
 
-    public List<Long> getTasksOfStudent(Long rollNum);
+    public List<TaskDetails> getTasksOfStudent(Long rollNum);
+
+    public List<Long> getTaskIdsOfStudent(Long rollNum);
 
     public void deleteStudentFromTask(Long rollNumber, Long taskId);
 

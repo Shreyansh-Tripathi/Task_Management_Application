@@ -24,6 +24,9 @@ public interface TaskDetailsRepository extends JpaRepository<TaskDetails, Long> 
 //    public List<Long> findStudentsByTaskId (@Param("taskId")Long taskId);
 
 
+    @Query(value = "select * from task_details where employee_id = :empId",nativeQuery = true)
+    public List<TaskDetails> getTasksOfTeacher(@Param("empId") Long empId);
+
     @Query(value = "select task_id from task_details where employee_id = :empId",nativeQuery = true)
-    public List<Long> getTasksOfTeacher(@Param("empId") Long empId);
+    public List<Long> getTaskIdsOfTeacher(@Param("empId") Long empId);
 }

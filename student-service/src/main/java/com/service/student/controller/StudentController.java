@@ -59,8 +59,13 @@ public class StudentController {
     }
 
     @GetMapping("/getStudentsOfTeacher")
-    public List<Long> getStudentsOfTeacher(@RequestParam Long empId){
+    public List<Student> getStudentsOfTeacher(@RequestParam Long empId){
         return studentService.getStudentsOfTeacher(empId);
+    }
+
+    @GetMapping("/getTasksOfStudent")
+    public List<Long> getTasksOfStudent(@RequestParam Long rollNum){
+        return studentService.getTasksOfStudent(rollNum);
     }
 
     @PostMapping("/jsonImport")

@@ -27,6 +27,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "update student set coordinator = -1 where coordinator = :empId",nativeQuery = true)
     public void deleteTeachersWithId(@Param("empId") Long empId);
 
-    @Query(value = "select roll_number from student where coordinator = :empId",nativeQuery = true)
-    public List<Long> getStudentsOfTeacher(@Param("empId") Long empId);
+    @Query(value = "select * from student where coordinator = :empId",nativeQuery = true)
+    public List<Student> getStudentsOfTeacher(@Param("empId") Long empId);
 }

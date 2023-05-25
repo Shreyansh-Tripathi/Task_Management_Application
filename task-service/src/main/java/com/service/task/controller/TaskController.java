@@ -1,5 +1,6 @@
 package com.service.task.controller;
 
+import com.service.task.model.TaskAssigned;
 import com.service.task.model.TaskDetails;
 import com.service.task.service.TaskAssignedService;
 import com.service.task.service.TaskDetailsService;
@@ -71,12 +72,22 @@ public class TaskController {
     }
 
     @GetMapping("/getTasksOfTeacher")
-    public List<Long> getTasksOfTeacher(Long empId){
+    public List<TaskDetails> getTasksOfTeacher(Long empId){
         return taskDetailsService.getTasksOfTeacher(empId);
     }
 
+    @GetMapping("/getTaskIdsOfTeacher")
+    public List<Long> getTaskIdsOfTeacher(Long empId){
+        return taskDetailsService.getTaskIdsOfTeacher(empId);
+    }
+
     @GetMapping("/getTasksOfStudent")
-    public List<Long> getTasksOfStudent(Long rollNum){
+    public List<TaskDetails> getTasksOfStudent(Long rollNum){
         return taskAssignedService.getTasksOfStudent(rollNum);
+    }
+
+    @GetMapping("/getTaskIdsOfStudent")
+    public List<Long> getTaskIdsOfStudent(Long rollNum){
+        return taskAssignedService.getTaskIdsOfStudent(rollNum);
     }
 }

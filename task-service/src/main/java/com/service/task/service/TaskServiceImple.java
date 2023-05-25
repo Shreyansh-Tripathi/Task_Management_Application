@@ -6,9 +6,12 @@ import com.service.task.model.TaskAssigned;
 import com.service.task.model.TaskDetails;
 import com.service.task.repository.TaskAssignedRepository;
 import com.service.task.repository.TaskDetailsRepository;
+import com.service.task.request.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,8 +63,13 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public List<Long> getTasksOfTeacher(Long empId) {
+    public List<TaskDetails> getTasksOfTeacher(Long empId) {
         return taskDetailsRepository.getTasksOfTeacher(empId);
+    }
+
+    @Override
+    public List<Long> getTaskIdsOfTeacher(Long empId) {
+        return taskDetailsRepository.getTaskIdsOfTeacher(empId);
     }
 
     @Override
@@ -70,7 +78,18 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public List<Long> getTasksOfStudent(Long rollNum) {
+    public List<TaskDetails> getTasksOfStudent(Long rollNum) {
+        List<Long> taskIds= taskAssignedRepository.getTasksOfStudent(rollNum);
+        List<TaskDetails> tasks= new ArrayList<>();
+        for(long id : taskIds){
+            TaskDetails taskDetails=getTaskById(id);
+            tasks.add(taskDetails);
+        }
+        return tasks;
+    }
+
+    @Override
+    public List<Long> getTaskIdsOfStudent(Long rollNum) {
         return taskAssignedRepository.getTasksOfStudent(rollNum);
     }
 

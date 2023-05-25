@@ -82,7 +82,7 @@ public class TeacherServiceImple implements TeacherService {
 
     @Override
     public List<Long> getTasksOfTeacher(Long empId) {
-        return taskClient.getTasksOfTeacher(empId);
+        return taskClient.getTaskIdsOfTeacher(empId);
     }
 
 
