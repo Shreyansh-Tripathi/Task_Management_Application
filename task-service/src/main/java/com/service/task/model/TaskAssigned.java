@@ -24,7 +24,8 @@ public class TaskAssigned {
     @NotNull(message = "student roll number cannot be null")
     private Long studentRollNum;
 
-    public TaskAssigned(Long taskId, Long rollNum){
-        this.taskId=taskId;
+    public TaskAssigned(Long task_id, Long rollNum){
+        taskId=task_id;
+        studentRollNum=rollNum;
     }
 }

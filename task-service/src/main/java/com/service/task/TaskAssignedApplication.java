@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableDiscoveryClient
-public class TaskServiceApplication {
+public class TaskAssignedApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaskServiceApplication.class, args);
+		SpringApplication.run(TaskAssignedApplication.class, args);
 	}
 
 }
