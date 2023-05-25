@@ -23,7 +23,7 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Map<String, Object>>(errorMap, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = NoSuchFieldException.class)
+    @ExceptionHandler(value = NoSuchElementException.class)
     public ResponseEntity<Map<String, Object>> handleNoSuchElementExceptions(NoSuchElementException exception, WebRequest request){
         Map<String,Object> errorMap=new LinkedHashMap<>();
 
