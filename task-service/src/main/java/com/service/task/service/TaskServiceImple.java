@@ -68,21 +68,33 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
 
     @Override
     public List<TaskDetails> getTasksOfTeacher(Long empId) {
+        if(empId<1){
+            throw new NoSuchElementException("Cannot find teacher");
+        }
         return taskDetailsRepository.getTasksOfTeacher(empId);
     }
 
     @Override
     public List<Long> getTaskIdsOfTeacher(Long empId) {
+        if(empId<1){
+            throw new NoSuchElementException("Cannot find teacher");
+        }
         return taskDetailsRepository.getTaskIdsOfTeacher(empId);
     }
 
     @Override
     public List<Long> getStudentsByTaskId(Long taskId) {
+        if(taskId<1){
+            throw new NoSuchElementException("Cannot find task");
+        }
         return taskAssignedRepository.getStudentsOfTask(taskId);
     }
 
     @Override
     public List<TaskDetails> getTasksOfStudent(Long rollNum) {
+        if(rollNum<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
         List<Long> taskIds= taskAssignedRepository.getTasksOfStudent(rollNum);
         List<TaskDetails> tasks= new ArrayList<>();
         for(long id : taskIds){
@@ -94,32 +106,56 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
 
     @Override
     public List<Long> getTaskIdsOfStudent(Long rollNum) {
+        if(rollNum<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
         return taskAssignedRepository.getTasksOfStudent(rollNum);
     }
 
     @Override
     public void deleteStudentFromTask(Long rollNumber, Long taskId) {
+        if(rollNumber<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
+        if(taskId<=0){
+            throw new NoSuchElementException("Cannot find task");
+        }
         taskAssignedRepository.deleteStudentFromTask(taskId,rollNumber);
     }
 
     @Override
     public void deleteTaskById(Long taskId) {
+        if(taskId<=0){
+            throw new NoSuchElementException("Cannot find task");
+        }
         taskAssignedRepository.deleteTaskById(taskId);
     }
 
     @Override
     public void deleteAllStudentTasks(Long rollNum) {
+        if(rollNum<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
         taskAssignedRepository.deleteAllStudentTasks(rollNum);
     }
 
     @Override
     public void addStudentToTask(Long taskId, Long rollNum) {
+        if(rollNum<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
+        if(taskId<=0){
+            throw new NoSuchElementException("Cannot find task");
+        }
         TaskAssigned task=new TaskAssigned(taskId,rollNum);
         taskAssignedRepository.save(task);
     }
 
     @Override
     public void addManyStudentsToTask(Long taskId, List<Long> rollNums) {
+        if(taskId<=0){
+            throw new NoSuchElementException("Cannot find task");
+        }
         for(long rollNum : rollNums){
             TaskAssigned task=new TaskAssigned(taskId,rollNum);
             taskAssignedRepository.save(task);

@@ -72,10 +72,10 @@ public class StudentServiceImple implements StudentService{
 
     @Override
     public void addTeacher(Long stuId, Long empId) {
-        if(empId==-1){
+        if(empId<=0){
             throw new RuntimeException("Cannot add invalid coordinator to student");
         }
-        if(stuId==-1){
+        if(stuId<=0){
             throw new NoSuchElementException("Cannot find student");
         }
         studentRepository.updateTeacher(stuId, empId);
@@ -88,7 +88,7 @@ public class StudentServiceImple implements StudentService{
 
     @Override
     public void deleteTeachersWithId(Long empId) {
-        if(empId==-1){
+        if(empId<=0){
             throw new RuntimeException("Cannot DELETE invalid coordinator from student");
         }
         studentRepository.deleteTeachersWithId(empId);
@@ -96,7 +96,7 @@ public class StudentServiceImple implements StudentService{
 
     @Override
     public List<Long> getTasksOfStudent(Long rollNum) {
-        if(rollNum==-1){
+        if(rollNum<=0){
             throw new NoSuchElementException("Cannot find student");
         }
         return taskClient.getTaskIdsOfStudent(rollNum);
