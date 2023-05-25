@@ -17,5 +17,7 @@ public interface TeacherService {
 
     public List<Long> getStudentsOfTeacher(Long empId);
 
+    public List<Long> getTasksOfTeacher(Long empId);
+
     List<Teacher> jsonImport(List<Teacher> teachers);
 }

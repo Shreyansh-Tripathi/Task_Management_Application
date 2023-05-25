@@ -51,6 +51,11 @@ public class TeacherController {
         return teacherService.getStudentsOfTeacher(empId);
     }
 
+    @GetMapping("/getTasksOfTeacher")
+    public List<Long> getTasksOfTeacher(@RequestParam Long empId){
+        return teacherService.getTasksOfTeacher(empId);
+    }
+
     //to import teachers data
     @PostMapping("/jsonImport")
     public List<Teacher> jsonImport(@RequestBody List<Teacher> teachers){

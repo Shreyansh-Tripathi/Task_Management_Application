@@ -80,6 +80,11 @@ public class TeacherServiceImple implements TeacherService {
         return studentClient.getStudentsOfTeacher(empId);
     }
 
+    @Override
+    public List<Long> getTasksOfTeacher(Long empId) {
+        return taskClient.getTasksOfTeacher(empId);
+    }
+
 
     //to import dummy json data
     @Override
