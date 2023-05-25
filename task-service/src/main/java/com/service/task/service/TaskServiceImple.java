@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TaskServiceImple implements TaskDetailsService, TaskAssignedService {
@@ -31,13 +32,15 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
 
     @Override
     public TaskDetails createTask(TaskDetails taskDetails) {
-
+        if(taskDetails.getDescription().isEmpty() || taskDetails.getName().isEmpty() || taskDetails.getEmployeeId()==-1){
+            throw new RuntimeException("Input field(s) not provided");
+        }
         return taskDetailsRepository.save(taskDetails);
     }
 
     @Override
     public TaskDetails getTaskById(Long taskId) {
-        return taskDetailsRepository.findById(taskId).orElseThrow(() -> new RuntimeException("cannot find task with id :"+taskId));
+        return taskDetailsRepository.findById(taskId).orElseThrow(() -> new NoSuchElementException("cannot find task with id :"+taskId));
     }
 
     @Override

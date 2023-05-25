@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    @EntityGraph(attributePaths = {"coordinator"})
-    public Long findByCoordinator (@Param("coordinator") Long coordinator);
+    @Query(value = "select coordinator from student where roll_number = :rollNum",nativeQuery = true)
+    public Long findCoordinator(@Param("rollNum") Long rollNum);
 
     @Modifying
     @Transactional

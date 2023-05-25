@@ -66,8 +66,8 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public Long getCoordinator(Long empId) {
-        return studentRepository.findByCoordinator(empId);
+    public Long getCoordinator(Long rollNum) {
+        return studentRepository.findCoordinator(rollNum);
     }
 
     @Override
