@@ -1,8 +1,7 @@
 package com.service.task.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.service.task.enums.StatusType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -23,6 +22,10 @@ public class TaskAssigned {
 
     @NotNull(message = "student roll number cannot be null")
     private Long studentRollNum;
+
+    @NotNull(message = "status cannot be null")
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
 
     public TaskAssigned(Long task_id, Long rollNum){
         taskId=task_id;
