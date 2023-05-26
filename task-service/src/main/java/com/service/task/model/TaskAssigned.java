@@ -27,8 +27,9 @@ public class TaskAssigned {
     @Enumerated(EnumType.STRING)
     private StatusType status;
 
-    public TaskAssigned(Long task_id, Long rollNum){
+    public TaskAssigned(Long task_id, Long rollNum, StatusType type){
         taskId=task_id;
         studentRollNum=rollNum;
+        status=type;
     }
 }

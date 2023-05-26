@@ -2,6 +2,7 @@ package com.service.task.service;
 
 import com.service.task.client.StudentClient;
 import com.service.task.client.TeacherClient;
+import com.service.task.enums.StatusType;
 import com.service.task.model.TaskAssigned;
 import com.service.task.model.TaskDetails;
 import com.service.task.repository.TaskAssignedRepository;
@@ -147,7 +148,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
         if(taskId<=0){
             throw new NoSuchElementException("Cannot find task");
         }
-        TaskAssigned task=new TaskAssigned(taskId,rollNum);
+        TaskAssigned task=new TaskAssigned(taskId,rollNum, StatusType.DUE);
         taskAssignedRepository.save(task);
     }
 
@@ -157,7 +158,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
             throw new NoSuchElementException("Cannot find task");
         }
         for(long rollNum : rollNums){
-            TaskAssigned task=new TaskAssigned(taskId,rollNum);
+            TaskAssigned task=new TaskAssigned(taskId,rollNum, StatusType.DUE);
             taskAssignedRepository.save(task);
         }
     }
