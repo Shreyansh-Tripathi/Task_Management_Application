@@ -1,6 +1,7 @@
 package com.service.teacher.service;
 
 import com.service.teacher.model.Teacher;
+import com.service.teacher.request.Student;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface TeacherService {
 
     public Teacher updateTeacher(Teacher teacher);
 
-    public List<Long> getStudentsOfTeacher(Long empId);
+    public List<Student> getStudentsOfTeacher(Long empId);
 
     public List<Long> getTasksOfTeacher(Long empId);
 

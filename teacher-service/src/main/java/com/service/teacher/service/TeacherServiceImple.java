@@ -5,6 +5,7 @@ import com.service.teacher.client.StudentClient;
 import com.service.teacher.client.TaskClient;
 import com.service.teacher.model.Teacher;
 import com.service.teacher.repository.TeacherRepository;
+import com.service.teacher.request.Student;
 import jakarta.annotation.PostConstruct;
 import jakarta.ws.rs.core.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +28,21 @@ public class TeacherServiceImple implements TeacherService {
     @Autowired
     private TaskClient taskClient;
 
-    public WebClient taskWebClient, studentWebClient;
-
-
+//    public WebClient taskWebClient, studentWebClient;
+//
+//
     //for static client access
-    @PostConstruct
-    public void init(){
-        taskWebClient= WebClient.builder()
-                .baseUrl("http://localhost:8083/tasks")
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-        studentWebClient=WebClient.builder()
-                .baseUrl("http://localhost:8082/students")
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-    }
+//    @PostConstruct
+//    public void init(){
+//        taskWebClient= WebClient.builder()
+//                .baseUrl("http://localhost:8083/tasks")
+//                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+//                .build();
+//        studentWebClient=WebClient.builder()
+//                .baseUrl("http://localhost:8082/students")
+//                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+//                .build();
+//    }
 
     @Override
     public Teacher createTeacher(Teacher teacher) {
@@ -85,7 +86,7 @@ public class TeacherServiceImple implements TeacherService {
     }
 
     @Override
-    public List<Long> getStudentsOfTeacher(Long empId) {
+    public List<Student> getStudentsOfTeacher(Long empId) {
         if(empId<=0){
             throw new NoSuchElementException("Cannot find teacher");
         }

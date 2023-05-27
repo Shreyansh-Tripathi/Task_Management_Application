@@ -3,6 +3,7 @@ package com.service.teacher.controller;
 import com.service.teacher.client.StudentClient;
 import com.service.teacher.client.TaskClient;
 import com.service.teacher.model.Teacher;
+import com.service.teacher.request.Student;
 import com.service.teacher.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class TeacherController {
 
 
     @GetMapping("/getStudentsOfTeacher")
-    public List<Long> getStudentsOfTeacher(@RequestParam Long empId){
+    public List<Student> getStudentsOfTeacher(@RequestParam Long empId){
         return teacherService.getStudentsOfTeacher(empId);
     }
 
