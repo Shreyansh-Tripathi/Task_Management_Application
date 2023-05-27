@@ -48,8 +48,8 @@ public class TaskController {
     }
 
     @PutMapping("/updateTask")
-    public TaskDetails updateTask(@RequestBody TaskDetails taskDetails){
-        return taskDetailsService.updateTask(taskDetails);
+    public TaskDetails updateTask(@RequestBody TaskDetails taskDetails, @RequestParam Long taskId){
+        return taskDetailsService.updateTask(taskDetails, taskId);
     }
 
     @PostMapping("/addStudentsToTask")
@@ -63,8 +63,8 @@ public class TaskController {
     }
 
     @DeleteMapping("/deleteStudentFromTask")
-    public void deleteStudentFromTask(@RequestParam Long taskId, @RequestParam Long stuId){
-        taskAssignedService.deleteStudentFromTask(stuId,taskId);
+    public void deleteStudentFromTask(@RequestParam Long taskId, @RequestParam Long rollNum){
+        taskAssignedService.deleteStudentFromTask(rollNum,taskId);
     }
 
     @DeleteMapping("/deleteAllStudentTasks")

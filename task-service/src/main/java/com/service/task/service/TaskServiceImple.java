@@ -52,8 +52,12 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public TaskDetails updateTask(TaskDetails taskDetails) {
-        TaskDetails newTaskDetails = getTaskById(taskDetails.getTaskId());
+    public TaskDetails updateTask(TaskDetails taskDetails, Long taskId) {
+        if(taskId<=0){
+            throw new NoSuchElementException("Cannot find task");
+        }
+        TaskDetails newTaskDetails = getTaskById(taskId);
+        newTaskDetails.setTaskId(taskId);
         if(taskDetails.getName()!=null)
             newTaskDetails.setName(taskDetails.getName());
         if(taskDetails.getDescription()!=null)
