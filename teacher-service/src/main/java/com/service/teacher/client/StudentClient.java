@@ -10,9 +10,9 @@ import java.util.List;
 @HttpExchange
 public interface StudentClient {
 
-    @GetExchange("/getStudentsOfTeacher")
+    @GetExchange("/students/getStudentsOfTeacher")
     public List<Long> getStudentsOfTeacher(@RequestParam Long empId);
 
-    @PatchExchange("/removeTeacherWithId")
+    @PatchExchange("/students/removeTeacherWithId")
     public void removeTeacherWithId(@RequestParam Long empId);
 }

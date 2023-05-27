@@ -7,6 +7,6 @@ import java.util.List;
 
 @HttpExchange
 public interface TaskClient {
-    @GetMapping("/getTaskIdsOfTeacher")
+    @GetMapping("/tasks/getTaskIdsOfTeacher")
     public List<Long> getTaskIdsOfTeacher(Long empId);
 }
