@@ -103,7 +103,7 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
         for(long id : taskIds){
             TaskDetails taskDetails=getTaskById(id);
             StatusType status=checkTaskStatus(id, rollNum);
-            HashMap<String,Object> map=taskDetails.taskDetailsAsMap(taskDetails);
+            HashMap<String,Object> map=taskDetails.taskDetailsAsMap();
             map.put("teacher",teacherClient.readTeacherById(taskDetails.getEmployeeId()).name());
             map.put("status",status);
             tasks.add(map);

@@ -2,6 +2,7 @@ package com.service.student.service;
 
 import com.service.student.model.Student;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface StudentService {
@@ -11,7 +12,7 @@ public interface StudentService {
 
     public List<Student> getAllStudents();
 
-    public List<Student> getStudentsOfTeacher(long empId);
+    public List<HashMap<String,Object>> getStudentsOfTeacher(long empId);
 
     public Student deleteStudent(Long rollNum);
 

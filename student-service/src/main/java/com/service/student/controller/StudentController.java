@@ -5,6 +5,7 @@ import com.service.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -59,7 +60,7 @@ public class StudentController {
     }
 
     @GetMapping("/getStudentsOfTeacher")
-    public List<Student> getStudentsOfTeacher(@RequestParam Long empId){
+    public List<HashMap<String,Object>> getStudentsOfTeacher(@RequestParam Long empId){
         return studentService.getStudentsOfTeacher(empId);
     }
 

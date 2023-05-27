@@ -25,12 +25,12 @@ public class TaskDetails {
     @NotNull(message = "teacher cannot be null")
     private Long employeeId;
 
-    public HashMap<String, Object> taskDetailsAsMap(TaskDetails details){
+    public HashMap<String, Object> taskDetailsAsMap(){
         HashMap<String, Object> map=new HashMap<>();
-        map.put("taskId",details.getTaskId());
-        map.put("name",details.getName());
-        map.put("description",details.getDescription());
-        map.put("teacher",details.getEmployeeId());
+        map.put("taskId",taskId);
+        map.put("name",name);
+        map.put("description",description);
+        map.put("teacher",employeeId);
         return map;
     }
 }

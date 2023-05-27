@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -32,4 +33,12 @@ public class Student {
     private String contact;
 
     private Long coordinator;
+
+    public HashMap<String, Object> studentDetailsAsMap(){
+        HashMap<String, Object> map=new HashMap<>();
+        map.put("rollNumber",rollNumber);
+        map.put("name",name);
+        map.put("email",email);
+        return map;
+    }
 }

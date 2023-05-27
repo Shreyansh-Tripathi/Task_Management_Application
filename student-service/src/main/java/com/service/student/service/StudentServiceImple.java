@@ -7,6 +7,8 @@ import com.service.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,8 +43,14 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public List<Student> getStudentsOfTeacher(long empId) {
-        return studentRepository.getStudentsOfTeacher(empId);
+    public List<HashMap<String,Object>> getStudentsOfTeacher(long empId) {
+        List<HashMap<String,Object>> students=new ArrayList<>();
+        for(Student student : studentRepository.getStudentsOfTeacher(empId)){
+            HashMap<String,Object> map=student.studentDetailsAsMap();
+            map.put("coordinator",teacherClient.readTeacherById(empId).name());
+            students.add(map);
+        }
+        return students;
     }
 
     @Override
