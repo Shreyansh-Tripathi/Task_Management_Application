@@ -1,18 +1,22 @@
 package com.service.task.service;
 
 import com.service.task.enums.StatusType;
+import com.service.task.model.TaskAssigned;
 import com.service.task.model.TaskDetails;
 import org.springframework.scheduling.config.Task;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TaskAssignedService {
 
     public List<Long> getStudentsByTaskId(Long taskId);
 
-    public List<TaskDetails> getTasksOfStudent(Long rollNum);
+    public List<Map<String,Object>> getTasksOfStudent(Long rollNum);
 
     public List<Long> getTaskIdsOfStudent(Long rollNum);
+
+    public List<TaskAssigned> getTasksStatus();
 
     public void deleteStudentFromTask(Long rollNumber, Long taskId);
 

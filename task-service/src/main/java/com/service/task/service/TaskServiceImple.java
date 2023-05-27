@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class TaskServiceImple implements TaskDetailsService, TaskAssignedService {
@@ -96,15 +94,18 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public List<TaskDetails> getTasksOfStudent(Long rollNum) {
+    public List<Map<String,Object>> getTasksOfStudent(Long rollNum) {
         if(rollNum<=0){
             throw new NoSuchElementException("Cannot find student");
         }
         List<Long> taskIds= taskAssignedRepository.getTasksOfStudent(rollNum);
-        List<TaskDetails> tasks= new ArrayList<>();
+        List<Map<String,Object>> tasks= new ArrayList<>();
         for(long id : taskIds){
             TaskDetails taskDetails=getTaskById(id);
-            tasks.add(taskDetails);
+            StatusType status=checkTaskStatus(id, rollNum);
+            HashMap<String,Object> map=taskDetails.taskDetailsAsMap(taskDetails);
+            map.put("status",status);
+            tasks.add(map);
         }
         return tasks;
     }
@@ -115,6 +116,11 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
             throw new NoSuchElementException("Cannot find student");
         }
         return taskAssignedRepository.getTasksOfStudent(rollNum);
+    }
+
+    @Override
+    public List<TaskAssigned> getTasksStatus() {
+        return taskAssignedRepository.findAll();
     }
 
     @Override

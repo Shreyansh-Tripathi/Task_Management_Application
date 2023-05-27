@@ -1,7 +1,6 @@
 package com.service.task.controller;
 
 import com.service.task.enums.StatusType;
-import com.service.task.model.TaskAssigned;
 import com.service.task.model.TaskDetails;
 import com.service.task.service.TaskAssignedService;
 import com.service.task.service.TaskDetailsService;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/tasks")
@@ -83,7 +83,7 @@ public class TaskController {
     }
 
     @GetMapping("/getTasksOfStudent")
-    public List<TaskDetails> getTasksOfStudent(@RequestParam Long rollNum){
+    public List<Map<String,Object>> getTasksOfStudent(@RequestParam Long rollNum){
         return taskAssignedService.getTasksOfStudent(rollNum);
     }
 
