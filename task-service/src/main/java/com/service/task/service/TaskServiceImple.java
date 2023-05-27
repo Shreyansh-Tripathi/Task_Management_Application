@@ -148,8 +148,37 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
         if(taskId<=0){
             throw new NoSuchElementException("Cannot find task");
         }
-        TaskAssigned task=new TaskAssigned(taskId,rollNum, StatusType.DUE);
+        TaskAssigned task=new TaskAssigned();
+        task.setTaskId(taskId);
+        task.setStudentRollNum(rollNum);
+        task.setStatus(StatusType.DUE);
         taskAssignedRepository.save(task);
+    }
+
+    @Override
+    public StatusType checkTaskStatus(Long taskId, Long rollNum) {
+        if(rollNum<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
+        if(taskId<=0){
+            throw new NoSuchElementException("Cannot find task");
+        }
+        return taskAssignedRepository.checkTaskStatus(taskId,rollNum);
+    }
+
+    @Override
+    public String changeTaskStatus(Long taskId, Long rollNum, StatusType status) {
+        if(rollNum<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
+        if(taskId<=0){
+            throw new NoSuchElementException("Cannot find task");
+        }
+        if(status!=StatusType.DUE && status!=StatusType.IN_PROGRESS && status!=StatusType.CANCELLED && status!=StatusType.COMPLETED){
+            throw new RuntimeException("Invalid status");
+        }
+        taskAssignedRepository.changeTaskStatus(status.name(),taskId,rollNum);
+        return "Changed status to : "+status.name();
     }
 
     @Override
@@ -158,7 +187,10 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
             throw new NoSuchElementException("Cannot find task");
         }
         for(long rollNum : rollNums){
-            TaskAssigned task=new TaskAssigned(taskId,rollNum, StatusType.DUE);
+            TaskAssigned task=new TaskAssigned();
+            task.setTaskId(taskId);
+            task.setStudentRollNum(rollNum);
+            task.setStatus(StatusType.DUE);
             taskAssignedRepository.save(task);
         }
     }

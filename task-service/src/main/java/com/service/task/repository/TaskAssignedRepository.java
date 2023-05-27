@@ -1,6 +1,7 @@
 package com.service.task.repository;
 
 
+import com.service.task.enums.StatusType;
 import com.service.task.model.TaskAssigned;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,5 +35,13 @@ public interface TaskAssignedRepository extends JpaRepository<TaskAssigned,Integ
     @Transactional
     @Query(value = "delete from task_assigned where task_id = :taskId and student_roll_num = :rollNum",nativeQuery = true)
     public void deleteStudentFromTask(@Param("taskId") Long taskId, @Param("rollNum") Long rollNum);
+
+    @Query(value = "select status from task_assigned where task_id = :taskId and student_roll_num = :rollNum",nativeQuery = true)
+    public StatusType checkTaskStatus(@Param("taskId") Long taskId, @Param("rollNum") Long rollNum);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update task_assigned set status = :status where task_id = :taskId and student_roll_num = :rollNum",nativeQuery = true)
+    public void changeTaskStatus(@Param("status") String status, @Param("taskId") Long taskId, @Param("rollNum") Long rollNum);
 
 }

@@ -1,5 +1,6 @@
 package com.service.task.controller;
 
+import com.service.task.enums.StatusType;
 import com.service.task.model.TaskAssigned;
 import com.service.task.model.TaskDetails;
 import com.service.task.service.TaskAssignedService;
@@ -72,22 +73,32 @@ public class TaskController {
     }
 
     @GetMapping("/getTasksOfTeacher")
-    public List<TaskDetails> getTasksOfTeacher(Long empId){
+    public List<TaskDetails> getTasksOfTeacher(@RequestParam Long empId){
         return taskDetailsService.getTasksOfTeacher(empId);
     }
 
     @GetMapping("/getTaskIdsOfTeacher")
-    public List<Long> getTaskIdsOfTeacher(Long empId){
+    public List<Long> getTaskIdsOfTeacher(@RequestParam Long empId){
         return taskDetailsService.getTaskIdsOfTeacher(empId);
     }
 
     @GetMapping("/getTasksOfStudent")
-    public List<TaskDetails> getTasksOfStudent(Long rollNum){
+    public List<TaskDetails> getTasksOfStudent(@RequestParam Long rollNum){
         return taskAssignedService.getTasksOfStudent(rollNum);
     }
 
     @GetMapping("/getTaskIdsOfStudent")
-    public List<Long> getTaskIdsOfStudent(Long rollNum){
+    public List<Long> getTaskIdsOfStudent(@RequestParam Long rollNum){
         return taskAssignedService.getTaskIdsOfStudent(rollNum);
+    }
+
+    @GetMapping("/checkTaskStatus")
+    public StatusType checkTaskStatus(@RequestParam Long taskId, @RequestParam Long rollNum){
+        return taskAssignedService.checkTaskStatus(taskId, rollNum);
+    }
+
+    @PatchMapping("/changeTaskStatus")
+    public String changeTaskStatus(@RequestParam Long taskId, @RequestParam Long rollNum, @RequestParam String status){
+        return taskAssignedService.changeTaskStatus(taskId, rollNum, StatusType.valueOf(status));
     }
 }

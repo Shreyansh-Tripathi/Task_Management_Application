@@ -14,7 +14,7 @@ import lombok.*;
 public class TaskAssigned {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @NotNull(message = "task Id cannot be null")
@@ -27,9 +27,9 @@ public class TaskAssigned {
     @Enumerated(EnumType.STRING)
     private StatusType status;
 
-    public TaskAssigned(Long task_id, Long rollNum, StatusType type){
-        taskId=task_id;
-        studentRollNum=rollNum;
-        status=type;
-    }
+//    public TaskAssigned(Long task_id, Long rollNum, StatusType type){
+//        taskId=task_id;
+//        studentRollNum=rollNum;
+//        status=type;
+//    }
 }
