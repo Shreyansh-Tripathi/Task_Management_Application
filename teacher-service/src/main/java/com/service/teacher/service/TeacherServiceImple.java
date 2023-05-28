@@ -51,6 +51,9 @@ public class TeacherServiceImple implements TeacherService {
         if(teacher.getContact().isEmpty() || teacher.getName().isEmpty() || teacher.getEmail().isEmpty()){
             throw new RuntimeException("Input field(s) not provided");
         }
+        if(teacherRepository.checkUnique(teacher.getContact()).isEmpty()){
+            throw new RuntimeException("Already present in database");
+        }
         return teacherRepository.save(teacher);
     }
 

@@ -15,5 +15,6 @@ import java.util.List;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-//    either use entity graph or native query
+    @Query(value = "select name from teacher where contact= contact",nativeQuery = true)
+    public String checkUnique(@Param("contact") String contact);
 }
