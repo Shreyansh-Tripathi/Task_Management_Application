@@ -2,7 +2,9 @@ package com.service.teacher.service;
 
 import com.service.teacher.model.Teacher;
 import com.service.teacher.request.Student;
+import com.service.teacher.request.TaskDetails;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface TeacherService {
@@ -14,11 +16,11 @@ public interface TeacherService {
 
     public Teacher deleteTeacher(Long empId);
 
-    public Teacher updateTeacher(Teacher teacher);
+    public Teacher updateTeacher(Teacher teacher, Long empId);
 
-    public List<Student> getStudentsOfTeacher(Long empId);
+    public List<HashMap<String,Object>> getStudentsOfTeacher(Long empId);
 
-    public List<Long> getTasksOfTeacher(Long empId);
+    public List<TaskDetails> getTasksOfTeacher(Long empId);
 
     List<Teacher> jsonImport(List<Teacher> teachers);
 }

@@ -6,6 +6,7 @@ import com.service.teacher.client.TaskClient;
 import com.service.teacher.model.Teacher;
 import com.service.teacher.repository.TeacherRepository;
 import com.service.teacher.request.Student;
+import com.service.teacher.request.TaskDetails;
 import jakarta.annotation.PostConstruct;
 import jakarta.ws.rs.core.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -75,8 +77,9 @@ public class TeacherServiceImple implements TeacherService {
     }
 
     @Override
-    public Teacher updateTeacher(Teacher teacher) {
-        Teacher newTeacher=readTeacher(teacher.getEmployeeId());
+    public Teacher updateTeacher(Teacher teacher, Long empId) {
+        Teacher newTeacher=readTeacher(empId);
+        newTeacher.setEmployeeId(empId);
         if(teacher.getName()!=null)
             newTeacher.setName(teacher.getName());
         if(teacher.getEmail()!=null)
@@ -87,7 +90,7 @@ public class TeacherServiceImple implements TeacherService {
     }
 
     @Override
-    public List<Student> getStudentsOfTeacher(Long empId) {
+    public List<HashMap<String,Object>> getStudentsOfTeacher(Long empId) {
         if(empId<=0){
             throw new NoSuchElementException("Cannot find teacher");
         }
@@ -95,11 +98,11 @@ public class TeacherServiceImple implements TeacherService {
     }
 
     @Override
-    public List<Long> getTasksOfTeacher(Long empId) {
+    public List<TaskDetails> getTasksOfTeacher(Long empId) {
         if(empId<=0){
             throw new NoSuchElementException("Cannot find teacher");
         }
-        return taskClient.getTaskIdsOfTeacher(empId);
+        return taskClient.getTasksOfTeacher(empId);
     }
 
 

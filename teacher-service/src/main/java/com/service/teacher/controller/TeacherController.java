@@ -1,13 +1,13 @@
 package com.service.teacher.controller;
 
-import com.service.teacher.client.StudentClient;
-import com.service.teacher.client.TaskClient;
 import com.service.teacher.model.Teacher;
 import com.service.teacher.request.Student;
+import com.service.teacher.request.TaskDetails;
 import com.service.teacher.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -42,18 +42,17 @@ public class TeacherController {
     }
 
     @PutMapping("/updateTeacher")
-    public Teacher updateTeacher(@RequestBody Teacher teacher){
-        return teacherService.updateTeacher(teacher);
+    public Teacher updateTeacher(@RequestBody Teacher teacher, @RequestParam Long empId){
+        return teacherService.updateTeacher(teacher, empId);
     }
 
-
     @GetMapping("/getStudentsOfTeacher")
-    public List<Student> getStudentsOfTeacher(@RequestParam Long empId){
+    public List<HashMap<String,Object>> getStudentsOfTeacher(@RequestParam Long empId){
         return teacherService.getStudentsOfTeacher(empId);
     }
 
     @GetMapping("/getTasksOfTeacher")
-    public List<Long> getTasksOfTeacher(@RequestParam Long empId){
+    public List<TaskDetails> getTasksOfTeacher(@RequestParam Long empId){
         return teacherService.getTasksOfTeacher(empId);
     }
 

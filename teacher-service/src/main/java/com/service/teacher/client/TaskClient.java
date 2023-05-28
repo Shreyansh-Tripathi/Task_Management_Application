@@ -1,12 +1,14 @@
 package com.service.teacher.client;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.service.teacher.request.TaskDetails;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.*;
 
 import java.util.List;
 
 @HttpExchange
 public interface TaskClient {
-    @GetMapping("/tasks/getTaskIdsOfTeacher")
-    public List<Long> getTaskIdsOfTeacher(Long empId);
+
+    @GetExchange("/tasks/getTasksOfTeacher")
+    public List<TaskDetails> getTasksOfTeacher(@RequestParam Long empId);
 }
