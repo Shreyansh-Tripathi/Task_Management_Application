@@ -7,10 +7,7 @@ import com.service.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class StudentServiceImple implements StudentService{
@@ -62,8 +59,9 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public Student updateStudent(Student student) {
-        Student newStudent = getStudent(student.getRollNumber());
+    public Student updateStudent(Student student, Long rollNum) {
+        Student newStudent = getStudent(rollNum);
+        newStudent.setRollNumber(rollNum);
         if(student.getName()!=null)
             newStudent.setName(student.getName());
         if(student.getEmail()!=null)
@@ -74,42 +72,76 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public Long getCoordinator(Long rollNum) {
-        return studentRepository.findCoordinator(rollNum);
+    public String getCoordinator(Long rollNum) {
+        if(rollNum<=0){
+            throw new NoSuchElementException("Cannot find student");
+        }
+        try {
+            Long empId= getStudent(rollNum).getCoordinator();
+            String name= teacherClient.readTeacherById(empId).name();
+            if(name.isEmpty()){
+                return "Teacher Not assigned";
+            }
+            return "Coordinator : " +name;
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
-    public void addTeacher(Long stuId, Long empId) {
+    public String addTeacher(Long stuId, Long empId) {
         if(empId<=0){
             throw new RuntimeException("Cannot add invalid coordinator to student");
         }
         if(stuId<=0){
             throw new NoSuchElementException("Cannot find student");
         }
-        studentRepository.updateTeacher(stuId, empId);
+        try{
+            studentRepository.updateTeacher(stuId, empId);
+            return "Success";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
-    public void deleteTeacherOfStudent(Long stuId) {
-        studentRepository.updateTeacher(stuId, -1L);
+    public String deleteTeacherOfStudent(Long stuId) {
+        if (stuId<=0){
+            throw new NoSuchElementException("Invalid Student Roll Number");
+        }
+        try {
+            getStudent(stuId);
+            studentRepository.updateTeacher(stuId, -1L);
+            return "Success";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
-    public void deleteTeachersWithId(Long empId) {
+    public String deleteTeachersWithId(Long empId) {
         if(empId<=0){
             throw new RuntimeException("Cannot DELETE invalid coordinator from student");
         }
-        studentRepository.deleteTeachersWithId(empId);
+        try {
+            studentRepository.deleteTeachersWithId(empId);
+            return "Success";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
-    public List<Long> getTasksOfStudent(Long rollNum) {
+    public List<Map<String,Object>> getTasksOfStudent(Long rollNum) {
         if(rollNum<=0){
             throw new NoSuchElementException("Cannot find student");
         }
-        return taskClient.getTaskIdsOfStudent(rollNum);
+        return taskClient.getTasksOfStudent(rollNum);
     }
-
     @Override
     public List<Student> jsonImport(List<Student> students) {
         students.forEach(

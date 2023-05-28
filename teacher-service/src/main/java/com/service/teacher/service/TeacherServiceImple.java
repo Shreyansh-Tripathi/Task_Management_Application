@@ -67,6 +67,7 @@ public class TeacherServiceImple implements TeacherService {
         if(empId<=0){
             throw new NoSuchElementException("Cannot find teacher");
         }
+
         Teacher teacher = readTeacher(empId);
         studentClient.removeTeacherWithId(empId);
         teacherRepository.deleteById(empId);

@@ -4,6 +4,7 @@ import com.service.student.model.Student;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface StudentService {
     public Student createStudent(Student student);
@@ -16,17 +17,17 @@ public interface StudentService {
 
     public Student deleteStudent(Long rollNum);
 
-    public Student updateStudent(Student student);
+    public Student updateStudent(Student student, Long rollNum);
 
-    public Long getCoordinator(Long empId);
+    public String getCoordinator(Long rollNum);
 
-    public void addTeacher(Long stuId,Long empId);
+    public String addTeacher(Long stuId,Long empId);
 
-    public void deleteTeacherOfStudent(Long stuId);
+    public String deleteTeacherOfStudent(Long stuId);
 
-    public void deleteTeachersWithId(Long empId);
+    public String deleteTeachersWithId(Long empId);
 
-    public List<Long> getTasksOfStudent(Long rollNum);
+    public List<Map<String,Object>> getTasksOfStudent(Long rollNum);
 
     List<Student> jsonImport(List<Student> teachers);
 }

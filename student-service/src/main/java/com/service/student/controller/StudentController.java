@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/students")
@@ -29,6 +30,11 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
+    @GetMapping("/getCoordinator")
+    public String getCoordinator(@RequestParam Long rollNum){
+        return studentService.getCoordinator(rollNum);
+    }
+
     @PostMapping("/createStudent")
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
@@ -40,23 +46,23 @@ public class StudentController {
     }
 
     @PutMapping("/updateStudent")
-    public Student updateStudent(@RequestBody Student student){
-        return studentService.updateStudent(student);
+    public Student updateStudent(@RequestBody Student student, @RequestParam Long rollNum){
+        return studentService.updateStudent(student, rollNum);
     }
 
     @PatchMapping("/addTeacher")
-    public void addTeacher(@RequestParam Long rollNum,@RequestParam Long empId){
-        studentService.addTeacher(rollNum,empId);
+    public String addTeacher(@RequestParam Long rollNum,@RequestParam Long empId){
+        return studentService.addTeacher(rollNum,empId);
     }
 
     @PatchMapping("/removeTeacherOfStudent")
-    public void removeTeacherOfStudent(@RequestParam Long rollNum){
-        studentService.deleteTeacherOfStudent(rollNum);
+    public String removeTeacherOfStudent(@RequestParam Long rollNum){
+        return studentService.deleteTeacherOfStudent(rollNum);
     }
 
     @PatchMapping("/removeTeacherWithId")
-    public void removeTeacherWithId(@RequestParam Long empId){
-        studentService.deleteTeachersWithId(empId);
+    public String removeTeacherWithId(@RequestParam Long empId){
+        return studentService.deleteTeachersWithId(empId);
     }
 
     @GetMapping("/getStudentsOfTeacher")
@@ -65,7 +71,7 @@ public class StudentController {
     }
 
     @GetMapping("/getTasksOfStudent")
-    public List<Long> getTasksOfStudent(@RequestParam Long rollNum){
+    public List<Map<String,Object>> getTasksOfStudent(@RequestParam Long rollNum){
         return studentService.getTasksOfStudent(rollNum);
     }
 

@@ -15,5 +15,5 @@ public interface StudentClient {
     public List<Student> getStudentsOfTeacher(@RequestParam Long empId);
 
     @PatchExchange("/students/removeTeacherWithId")
-    public void removeTeacherWithId(@RequestParam Long empId);
+    public String removeTeacherWithId(@RequestParam Long empId);
 }
