@@ -53,23 +53,23 @@ public class TaskController {
     }
 
     @PostMapping("/addStudentsToTask")
-    public void addStudentsToTask(@RequestParam Long taskId, @RequestParam List<Long> stuIds){
-         taskAssignedService.addManyStudentsToTask(taskId,stuIds);
+    public String addStudentsToTask(@RequestParam Long taskId, @RequestParam List<Long> stuIds){
+         return taskAssignedService.addManyStudentsToTask(taskId,stuIds);
     }
 
     @PostMapping("/addStudentToTask")
-    public void addStudentToTask(@RequestParam Long taskId, @RequestParam Long stuId){
-        taskAssignedService.addStudentToTask(taskId,stuId);
+    public String addStudentToTask(@RequestParam Long taskId, @RequestParam Long stuId){
+        return taskAssignedService.addStudentToTask(taskId,stuId);
     }
 
     @DeleteMapping("/deleteStudentFromTask")
-    public void deleteStudentFromTask(@RequestParam Long taskId, @RequestParam Long rollNum){
-        taskAssignedService.deleteStudentFromTask(rollNum,taskId);
+    public String deleteStudentFromTask(@RequestParam Long taskId, @RequestParam Long rollNum){
+        return taskAssignedService.deleteStudentFromTask(rollNum,taskId);
     }
 
     @DeleteMapping("/deleteAllStudentTasks")
-    public void deleteAllStudentTasks(@RequestParam Long rollNum){
-        taskAssignedService.deleteAllStudentTasks(rollNum);
+    public String deleteAllStudentTasks(@RequestParam Long rollNum){
+        return taskAssignedService.deleteAllStudentTasks(rollNum);
     }
 
     @GetMapping("/getTasksOfTeacher")

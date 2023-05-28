@@ -125,14 +125,19 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public void deleteStudentFromTask(Long rollNumber, Long taskId) {
+    public String deleteStudentFromTask(Long rollNumber, Long taskId) {
         if(rollNumber<=0){
             throw new NoSuchElementException("Cannot find student");
         }
         if(taskId<=0){
             throw new NoSuchElementException("Cannot find task");
         }
-        taskAssignedRepository.deleteStudentFromTask(taskId,rollNumber);
+        try {
+            taskAssignedRepository.deleteStudentFromTask(taskId, rollNumber);
+            return "Success";
+        } catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
@@ -144,26 +149,36 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public void deleteAllStudentTasks(Long rollNum) {
+    public String deleteAllStudentTasks(Long rollNum) {
         if(rollNum<=0){
             throw new NoSuchElementException("Cannot find student");
         }
-        taskAssignedRepository.deleteAllStudentTasks(rollNum);
+        try {
+            taskAssignedRepository.deleteAllStudentTasks(rollNum);
+            return "Success";
+        } catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
-    public void addStudentToTask(Long taskId, Long rollNum) {
+    public String addStudentToTask(Long taskId, Long rollNum) {
         if(rollNum<=0){
             throw new NoSuchElementException("Cannot find student");
         }
         if(taskId<=0){
             throw new NoSuchElementException("Cannot find task");
         }
-        TaskAssigned task=new TaskAssigned();
-        task.setTaskId(taskId);
-        task.setStudentRollNum(rollNum);
-        task.setStatus(StatusType.DUE);
-        taskAssignedRepository.save(task);
+        try {
+            TaskAssigned task=new TaskAssigned();
+            task.setTaskId(taskId);
+            task.setStudentRollNum(rollNum);
+            task.setStatus(StatusType.DUE);
+            taskAssignedRepository.save(task);
+            return "Success";
+        } catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
@@ -193,16 +208,22 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public void addManyStudentsToTask(Long taskId, List<Long> rollNums) {
+    public String addManyStudentsToTask(Long taskId, List<Long> rollNums) {
         if(taskId<=0){
             throw new NoSuchElementException("Cannot find task");
         }
-        for(long rollNum : rollNums){
-            TaskAssigned task=new TaskAssigned();
-            task.setTaskId(taskId);
-            task.setStudentRollNum(rollNum);
-            task.setStatus(StatusType.DUE);
-            taskAssignedRepository.save(task);
+        try {
+            for (long rollNum : rollNums) {
+                TaskAssigned task = new TaskAssigned();
+                task.setTaskId(taskId);
+                task.setStudentRollNum(rollNum);
+                task.setStatus(StatusType.DUE);
+                taskAssignedRepository.save(task);
+            }
+            return "Success";
+        }
+        catch (Exception e){
+            return e.getMessage();
         }
     }
 }

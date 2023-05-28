@@ -18,17 +18,17 @@ public interface TaskAssignedService {
 
     public List<TaskAssigned> getTasksStatus();
 
-    public void deleteStudentFromTask(Long rollNumber, Long taskId);
+    public String deleteStudentFromTask(Long rollNumber, Long taskId);
 
     public void deleteTaskById(Long taskId);
 
-    public void deleteAllStudentTasks(Long rollNum);
+    public String deleteAllStudentTasks(Long rollNum);
 
-    public void addStudentToTask(Long taskId, Long rollNum);
+    public String addStudentToTask(Long taskId, Long rollNum);
 
     public StatusType checkTaskStatus(Long taskId, Long rollNum);
 
     public String changeTaskStatus(Long taskId, Long rollNum, StatusType status);
 
-    public void addManyStudentsToTask(Long taskId, List<Long> rollNums);
+    public String addManyStudentsToTask(Long taskId, List<Long> rollNums);
 }
