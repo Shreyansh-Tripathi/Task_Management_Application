@@ -13,6 +13,21 @@ spring:
     import: "optional:configserver:http://localhost:8088"
   cloud:
     gateway:
+#      this is the way we setup centralised global cors configuration
+      globalcors:
+        corsConfiguration:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000/"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - "Content-Type"
+#              - "Authorization"  #for authorization
+            maxAge: 3600
       routes:
         - id: task-service
           uri: lb://task-service
@@ -26,3 +41,33 @@ spring:
           uri: lb://teacher-service
           predicates:
             - Path=/teachers/**
+
+
+
+#this way we can setup specific cors properties for specific microservices instead of specifying globalcors configuration
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: microservice1
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/microservice1/**
+#          filters:
+#            - name: Cors
+#              args:
+#                allowedOrigins: "http://frontend.example.com"
+#                allowedMethods: "GET, POST, PUT, DELETE"
+#                allowedHeaders: "Content-Type, Authorization"
+#                maxAge: 3600
+#        - id: microservice2
+#          uri: http://localhost:8082
+#          predicates:
+#            - Path=/microservice2/**
+#          filters:
+#            - name: Cors
+#              args:
+#                allowedOrigins: "http://frontend.example.com"
+#                allowedMethods: "GET, POST, PUT, DELETE"
+#                allowedHeaders: "Content-Type, Authorization"
+#                maxAge: 3600

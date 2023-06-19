@@ -1,7 +1,6 @@
 package com.service.teacher.controller;
 
 import com.service.teacher.model.Teacher;
-import com.service.teacher.request.Student;
 import com.service.teacher.request.TaskDetails;
 import com.service.teacher.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/teachers")
 public class TeacherController {
 

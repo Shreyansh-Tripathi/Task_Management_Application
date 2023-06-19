@@ -14,6 +14,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+
 public class TaskDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
