@@ -1,6 +1,7 @@
 package com.service.student.controller;
 
 import com.service.student.model.Student;
+import com.service.student.request.Teacher;
 import com.service.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class StudentController {
     }
 
     @GetMapping("/getCoordinator")
-    public String getCoordinator(@RequestParam Long rollNum){
+    public Teacher getCoordinator(@RequestParam Long rollNum){
         return studentService.getCoordinator(rollNum);
     }
 

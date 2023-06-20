@@ -4,6 +4,7 @@ import com.service.student.client.TaskClient;
 import com.service.student.client.TeacherClient;
 import com.service.student.model.Student;
 import com.service.student.repository.StudentRepository;
+import com.service.student.request.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,21 +76,12 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public String getCoordinator(Long rollNum) {
+    public Teacher getCoordinator(Long rollNum) {
         if(rollNum<=0){
             throw new NoSuchElementException("Cannot find student");
         }
-        try {
-            Long empId= getStudent(rollNum).getCoordinator();
-            String name= teacherClient.readTeacherById(empId).name();
-            if(name.isEmpty()){
-                return "Teacher Not assigned";
-            }
-            return "Coordinator : " +name;
-        }
-        catch (Exception e){
-            return e.getMessage();
-        }
+        Long empId= getStudent(rollNum).getCoordinator();
+        return teacherClient.readTeacherById(empId);
     }
 
     @Override

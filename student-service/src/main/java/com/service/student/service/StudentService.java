@@ -1,6 +1,7 @@
 package com.service.student.service;
 
 import com.service.student.model.Student;
+import com.service.student.request.Teacher;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface StudentService {
 
     public Student updateStudent(Student student, Long rollNum);
 
-    public String getCoordinator(Long rollNum);
+    public Teacher getCoordinator(Long rollNum);
 
     public String addTeacher(Long stuId,Long empId);
 
