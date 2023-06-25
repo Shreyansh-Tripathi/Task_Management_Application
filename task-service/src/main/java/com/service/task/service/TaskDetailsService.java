@@ -12,7 +12,7 @@ public interface TaskDetailsService {
 
     public TaskDetails deleteTaskDetails(Long taskId);
 
-    public TaskDetails updateTask(TaskDetails taskDetails, Long taskId);
+    public TaskDetails updateTask(TaskDetails taskDetails);
 
     public List<TaskDetails> getAllTasks();
 

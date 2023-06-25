@@ -23,6 +23,11 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     @Autowired
     private TaskAssignedRepository taskAssignedRepository;
 
+    public TaskServiceImple(TaskDetailsRepository taskDetailsRepository, TaskAssignedRepository taskAssignedRepository) {
+        this.taskDetailsRepository = taskDetailsRepository;
+        this.taskAssignedRepository = taskAssignedRepository;
+    }
+
     @Autowired
     private TeacherClient teacherClient;
 
@@ -50,18 +55,9 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
     }
 
     @Override
-    public TaskDetails updateTask(TaskDetails taskDetails, Long taskId) {
-        if(taskId<=0){
-            throw new NoSuchElementException("Cannot find task");
-        }
-        TaskDetails newTaskDetails = getTaskById(taskId);
-        newTaskDetails.setTaskId(taskId);
-        if(taskDetails.getName()!=null)
-            newTaskDetails.setName(taskDetails.getName());
-        if(taskDetails.getDescription()!=null)
-            newTaskDetails.setDescription(taskDetails.getDescription());
+    public TaskDetails updateTask(TaskDetails taskDetails) {
 
-        return taskDetailsRepository.save(newTaskDetails);
+        return taskDetailsRepository.save(taskDetails);
     }
 
     @Override

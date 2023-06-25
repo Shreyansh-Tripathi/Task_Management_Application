@@ -49,8 +49,8 @@ public class TaskController {
     }
 
     @PutMapping("/updateTask")
-    public TaskDetails updateTask(@RequestBody TaskDetails taskDetails, @RequestParam Long taskId){
-        return taskDetailsService.updateTask(taskDetails, taskId);
+    public TaskDetails updateTask(@RequestBody TaskDetails taskDetails){
+        return taskDetailsService.updateTask(taskDetails);
     }
 
     @PostMapping("/addStudentsToTask")
