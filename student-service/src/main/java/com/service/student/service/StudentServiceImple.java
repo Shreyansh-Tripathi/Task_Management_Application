@@ -16,6 +16,10 @@ public class StudentServiceImple implements StudentService{
     @Autowired
     private StudentRepository studentRepository;
 
+    public StudentServiceImple(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     @Autowired
     private TeacherClient teacherClient;
 
@@ -46,9 +50,10 @@ public class StudentServiceImple implements StudentService{
     @Override
     public List<HashMap<String,Object>> getStudentsOfTeacher(long empId) {
         List<HashMap<String,Object>> students=new ArrayList<>();
+        String teacherName = teacherClient.readTeacherById(empId).name();
         for(Student student : studentRepository.getStudentsOfTeacher(empId)){
             HashMap<String,Object> map=student.studentDetailsAsMap();
-            map.put("coordinator",teacherClient.readTeacherById(empId).name());
+            map.put("coordinator",teacherName);
             students.add(map);
         }
         return students;
