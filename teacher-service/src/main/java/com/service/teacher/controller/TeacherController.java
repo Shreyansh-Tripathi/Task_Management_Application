@@ -42,8 +42,8 @@ public class TeacherController {
     }
 
     @PutMapping("/updateTeacher")
-    public Teacher updateTeacher(@RequestBody Teacher teacher, @RequestParam Long empId){
-        return teacherService.updateTeacher(teacher, empId);
+    public Teacher updateTeacher(@RequestBody Teacher teacher){
+        return teacherService.updateTeacher(teacher);
     }
 
     @GetMapping("/getStudentsOfTeacher")

@@ -16,7 +16,7 @@ public interface TeacherService {
 
     public Teacher deleteTeacher(Long empId);
 
-    public Teacher updateTeacher(Teacher teacher, Long empId);
+    public Teacher updateTeacher(Teacher teacher);
 
     public List<HashMap<String,Object>> getStudentsOfTeacher(Long empId);
 

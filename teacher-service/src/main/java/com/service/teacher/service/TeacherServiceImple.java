@@ -24,6 +24,10 @@ public class TeacherServiceImple implements TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    public TeacherServiceImple(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
+    }
+
     @Autowired
     private StudentClient studentClient;
 
@@ -80,16 +84,8 @@ public class TeacherServiceImple implements TeacherService {
     }
 
     @Override
-    public Teacher updateTeacher(Teacher teacher, Long empId) {
-        Teacher newTeacher=readTeacher(empId);
-        newTeacher.setEmployeeId(empId);
-        if(teacher.getName()!=null)
-            newTeacher.setName(teacher.getName());
-        if(teacher.getEmail()!=null)
-            newTeacher.setEmail(teacher.getEmail());
-        if(teacher.getContact()!=null)
-            newTeacher.setContact(teacher.getContact());
-        return teacherRepository.save(newTeacher);
+    public Teacher updateTeacher(Teacher teacher) {
+        return teacherRepository.save(teacher);
     }
 
     @Override
