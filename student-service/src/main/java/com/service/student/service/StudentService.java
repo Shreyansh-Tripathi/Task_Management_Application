@@ -18,7 +18,7 @@ public interface StudentService {
 
     public Student deleteStudent(Long rollNum);
 
-    public Student updateStudent(Student student, Long rollNum);
+    public Student updateStudent(Student student);
 
     public Teacher getCoordinator(Long rollNum);
 

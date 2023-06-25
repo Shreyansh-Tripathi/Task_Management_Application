@@ -63,16 +63,8 @@ public class StudentServiceImple implements StudentService{
     }
 
     @Override
-    public Student updateStudent(Student student, Long rollNum) {
-        Student newStudent = getStudent(rollNum);
-        newStudent.setRollNumber(rollNum);
-        if(student.getName()!=null)
-            newStudent.setName(student.getName());
-        if(student.getEmail()!=null)
-            newStudent.setEmail(student.getEmail());
-        if(student.getContact()!=null)
-            newStudent.setContact(student.getContact());
-        return studentRepository.save(newStudent);
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student);
     }
 
     @Override

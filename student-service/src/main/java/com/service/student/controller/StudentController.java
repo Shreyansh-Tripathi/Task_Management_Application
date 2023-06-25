@@ -48,8 +48,8 @@ public class StudentController {
     }
 
     @PutMapping("/updateStudent")
-    public Student updateStudent(@RequestBody Student student, @RequestParam Long rollNum){
-        return studentService.updateStudent(student, rollNum);
+    public Student updateStudent(@RequestBody Student student){
+        return studentService.updateStudent(student);
     }
 
     @PatchMapping("/addTeacher")
