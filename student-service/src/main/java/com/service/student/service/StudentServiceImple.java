@@ -31,7 +31,7 @@ public class StudentServiceImple implements StudentService{
         if(student.getContact().isEmpty() || student.getName().isEmpty() || student.getEmail().isEmpty()){
             throw new RuntimeException("Input field(s) not provided");
         }
-        if(studentRepository.checkUnique(student.getContact()).isEmpty()){
+        if(studentRepository.checkUnique(student.getContact())!=null){
             throw new RuntimeException("Already present in database");
         }
         return studentRepository.save(student);

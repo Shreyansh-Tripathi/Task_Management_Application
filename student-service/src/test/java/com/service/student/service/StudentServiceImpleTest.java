@@ -30,6 +30,15 @@ class StudentServiceImpleTest {
     }
 
     @Test
+    void createStudent() {
+        Student student=new Student(12,"Danny","danny@sjs.com","9806967890",2L);
+        when(studentRepository.save(student)).thenReturn(student);
+
+        studentService.createStudent(student);
+        verify(studentRepository).save(student);
+    }
+
+    @Test
     void getStudent() {
         Student student=new Student(11,"Sanju","sanju@sjs.com","9876567890",2L);
         when(studentRepository.findById(student.getRollNumber())).thenReturn(Optional.of(student));
@@ -64,10 +73,6 @@ class StudentServiceImpleTest {
     @Test
     void deleteTeacherOfStudent() {
         Student student=new Student(1L,"Sanju","sanju@sjs.com","9876567890",2L);
-//        when(studentRepository.save(student)).thenReturn(student);
-//
-//        studentRepository.save(student);
-
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
 
         assertThat(studentService.deleteTeacherOfStudent(1L)).isEqualTo("Success");

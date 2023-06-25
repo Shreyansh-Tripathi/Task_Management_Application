@@ -29,6 +29,15 @@ class TeacherServiceImpleTest {
     }
 
     @Test
+    void createTeacher() {
+        Teacher teacher=new Teacher(11,"Danny","danny@sjs.com","9819211022");
+        when(teacherRepository.save(teacher)).thenReturn(teacher);
+
+        teacherService.createTeacher(teacher);
+        verify(teacherRepository).save(teacher);
+    }
+
+    @Test
     void readTeacher() {
         Teacher teacher=new Teacher(11,"Reni","reni@sjs.com","9819201022");
         when(teacherRepository.findById(teacher.getEmployeeId())).thenReturn(Optional.of(teacher));

@@ -56,7 +56,6 @@ public class TaskServiceImple implements TaskDetailsService, TaskAssignedService
 
     @Override
     public TaskDetails updateTask(TaskDetails taskDetails) {
-
         return taskDetailsRepository.save(taskDetails);
     }
 

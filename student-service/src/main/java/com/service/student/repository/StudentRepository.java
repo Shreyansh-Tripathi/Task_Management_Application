@@ -30,6 +30,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "select * from student where coordinator = :empId",nativeQuery = true)
     public List<Student> getStudentsOfTeacher(@Param("empId") Long empId);
 
-    @Query(value = "select name from teacher where contact= contact",nativeQuery = true)
+    @Query(value = "select name from student where contact= :contact",nativeQuery = true)
     public String checkUnique(@Param("contact") String contact);
 }
