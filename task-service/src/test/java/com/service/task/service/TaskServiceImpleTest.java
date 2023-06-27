@@ -39,6 +39,9 @@ class TaskServiceImpleTest {
     @Test
     void createTask() {
         TaskDetails task = new TaskDetails(1,"Task", "Do this task",1L);
+//        taskDetailsRepository.save(task);
+//        Long id = taskDetailsRepository.findById(task.getTaskId()).get().getTaskId();
+//        assertEquals(id,task.getTaskId());
         when(taskDetailsRepository.save(task)).thenReturn(task);
 
         taskService.createTask(task);
